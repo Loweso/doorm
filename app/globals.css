@@ -6,3 +6,7 @@
 .poppins {
   font-family: var(--font-poppins); /* Apply Poppins font */
 }
+
+body {
+  font-family: var(--font-poppins);
+}

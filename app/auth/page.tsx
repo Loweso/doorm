@@ -15,7 +15,7 @@ export default function Login() {
   };
 
   return (
-    <div className="h-screen font-poppins bg-bgColor flex flex-col justify-between ">
+    <div className="h-screen bg-bgColor flex flex-col justify-between ">
       <div className="flex-grow flex justify-center items-center">
         <div className="w-[25%] h-[40%] rounded-xl border-[1px] border-black bg-accentColor-lightBlue bg-opacity-40 flex flex-col space-y-8 pt-14 shadow-lg">
           <div className="flex justify-center">
