@@ -10,3 +10,9 @@
 body {
   font-family: var(--font-poppins);
 }
+
+::-webkit-input-placeholder {
+  font-style: italic;
+  font-size: small;
+  font-weight: 400;
+}
