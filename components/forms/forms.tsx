@@ -1,6 +1,7 @@
 "use client";
 import { usePathname } from "next/navigation";
 import { IoMdCloudUpload } from "react-icons/io";
+import { IoMdArrowDropdown } from "react-icons/io";
 
 export const Forms = () => {
   const path = usePathname();
@@ -40,16 +41,24 @@ export const Forms = () => {
             >
               Rent type:
             </label>
-            <select
-              name="rentType"
-              id="rentType"
-              className="rounded p-2 bg-bgColor"
-            >
-              <option value="boarding_house">Boarding House</option>
-              <option value="apartment">Apartment</option>
-              <option value="dormitory">Dormitory</option>
-              <option value="condominium">Condominium</option>
-            </select>
+            <div className="relative">
+              <select
+                name="rentType"
+                id="rentType"
+                className="rounded p-2 bg-bgColor w-full cursor-pointer"
+              >
+                <option value="boarding_house">Boarding House</option>
+                <option value="apartment">Apartment</option>
+                <option value="dormitory">Dormitory</option>
+                <option value="condominium">Condominium</option>
+              </select>
+
+              <IoMdArrowDropdown
+                size={30}
+                color="white"
+                className="absolute pointer-events-none bottom-1 right-1 border-[1px] rounded-lg border-content-darkBrown  bg-accentColor-lightBlue font-semibold text-xl text-content-white shadow-md"
+              />
+            </div>
           </div>
         </div>
 
@@ -85,7 +94,7 @@ export const Forms = () => {
               className="rounded p-2 bg-bgColor"
             />
             <div className="absolute bottom-1 right-2">
-              <button className="border-[1px] border-content-darkBrown rounded-xl bg-accentColor-lightBlue font-semibold text-lg text-content-white px-2 ">
+              <button className="border-[1px] border-content-darkBrown rounded-lg bg-accentColor-lightBlue font-semibold text-lg text-content-white px-2 ">
                 ADD
               </button>
             </div>
@@ -97,14 +106,21 @@ export const Forms = () => {
             >
               Availability:
             </label>
-            <select
-              name="rentType"
-              id="availability"
-              className="rounded p-2 bg-bgColor"
-            >
-              <option value="available">Available for rent</option>
-              <option value="occupied">Occupied</option>
-            </select>
+            <div className="relative ">
+              <select
+                name="rentType"
+                id="availability"
+                className="rounded p-2 bg-bgColor w-full cursor-pointer"
+              >
+                <option value="available">Available for rent</option>
+                <option value="occupied">Occupied</option>
+              </select>
+              <IoMdArrowDropdown
+                size={30}
+                color="white"
+                className="absolute pointer-events-none bottom-1 right-1 border-[1px] rounded-lg border-content-darkBrown  bg-accentColor-lightBlue font-semibold text-xl text-content-white shadow-md"
+              />
+            </div>
           </div>
         </div>
 
@@ -122,13 +138,13 @@ export const Forms = () => {
           ></textarea>
         </div>
 
-        <div className="flex gap-x-4">
+        <div className="flex gap-x-8 w-full">
           <div className="w-3/5">
             <span className="text-xs text-content-white font-medium">
               Price Range for Monthly Rent (in PHP):
             </span>
-            <div className="flex gap-x-4">
-              <div className="flex flex-col w-5/12">
+            <div className="flex gap-x-4 w-full">
+              <div className="flex flex-col w-6/12">
                 <input
                   type="number"
                   id="minimum_rent"
@@ -142,7 +158,7 @@ export const Forms = () => {
                   Starting minimum
                 </label>
               </div>
-              <div className="flex flex-col w-5/12">
+              <div className="flex flex-col w-6/12">
                 <input
                   type="number"
                   id="ideal_price"
@@ -158,13 +174,13 @@ export const Forms = () => {
               </div>
             </div>
           </div>
-          <div className="flex flex-col mt-1">
+          <div className="flex flex-col mt-1 w-2/5">
             <p className="text-xs text-content-white font-medium mb-1">
               Listing image (JPG,PNG):
             </p>
             <label
               htmlFor="room_image"
-              className="flex border-2 rounded p-2 bg-bgColor font-bold text-content-darkBrown items-center gap-x-2"
+              className="flex border-2 rounded p-2 bg-bgColor font-bold text-content-darkBrown items-center gap-x-2 cursor-pointer"
             >
               <IoMdCloudUpload size={20} />
               Upload an image

@@ -9,6 +9,13 @@
 
 body {
   font-family: var(--font-poppins);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+footer {
+  margin-top: auto;
 }
 
 ::-webkit-input-placeholder {
@@ -16,3 +23,5 @@ body {
   font-size: small;
   font-weight: 400;
 }
+
+

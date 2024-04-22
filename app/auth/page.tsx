@@ -15,7 +15,7 @@ export default function Login() {
   };
 
   return (
-    <div className="h-screen bg-bgColor flex flex-col justify-between ">
+    <div className="h-full bg-bgColor flex flex-col justify-between ">
       <div className="flex-grow flex justify-center items-center">
         <div className="w-[25%] h-[40%] rounded-xl border-[1px] border-black bg-accentColor-lightBlue bg-opacity-40 flex flex-col space-y-8 pt-14 shadow-lg">
           <div className="flex justify-center">
@@ -39,18 +39,6 @@ export default function Login() {
           </div>
         </div>
       </div>
-      <footer className="border-t-[1px] bg-accentColor-lightBlue bg-opacity-50 p-4 font-semibold  text-content-darkBrown  flex ">
-        <span className="ml-8 ">CMSC 127 A Final Project</span>
-        <span className="ml-16">&#169; Est. 2024</span>
-        <div className="ml-auto absolute right-10 bottom-2">
-          <Image
-            src="/logo/doorm.png"
-            width={100}
-            height={50}
-            alt="Doorm Logo"
-          />
-        </div>
-      </footer>
     </div>
   );
 }
