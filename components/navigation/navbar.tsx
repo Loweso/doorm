@@ -6,7 +6,7 @@ import { GoPencil } from "react-icons/go";
 import { userStore } from "@/store/userStore";
 
 const links = [
-  { name: "View Dorms", linkto: "/", isDorm: true },
+  { name: "View Dorms", linkto: "/listing", isDorm: true },
   { name: "Create new listing", linkto: "/listing/new", isListing: true },
 ];
 
