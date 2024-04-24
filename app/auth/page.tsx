@@ -1,17 +1,10 @@
 "use client";
-import supabaseBrowserClient from "@/utils/supabase/client";
 import Image from "next/image";
 import { FcGoogle } from "react-icons/fc";
 
 export default function Login() {
   const loginWithGoogle = () => {
-    const supabase = supabaseBrowserClient();
-    supabase.auth.signInWithOAuth({
-      provider: "google",
-      options: {
-        redirectTo: location.origin + "auth/callback",
-      },
-    });
+    window.open("http://localhost:5000/auth/google/callback", "_self");
   };
 
   return (
