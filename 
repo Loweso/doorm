@@ -1,0 +1,104 @@
+[33mcommit b32c5d04859cb211814c2db3233b6acc0bf0fa09[m[33m ([m[1;36mHEAD -> [m[1;32msupabase_fetchData[m[33m, [m[1;33mtag: branch_archive[m[33m, [m[1;31morigin/supabase_fetchData[m[33m)[m
+Author: Loweso <dlouisefermin@gmail.com>
+Date:   Wed Apr 24 11:09:54 2024 +0800
+
+    [To be archived]Supabase user data fetch
+
+[33mcommit c14819cf3b8274455ce0c8d875c55583d976856a[m[33m ([m[1;33mtag: archive/supabase_fetchData[m[33m, [m[1;31morigin/master[m[33m, [m[1;32mmaster[m[33m)[m
+Author: powtzulist <delasanarwin@gmail.com>
+Date:   Mon Apr 22 22:12:54 2024 +0800
+
+    fixed user page footer & sizing, universalized footer, styled the forms component
+
+[33mcommit 974076575942f5f7c0ba9433ac1aad100ac48e52[m
+Author: Renier Jardio <renierjardio@gmail.com>
+Date:   Mon Apr 22 12:40:04 2024 +0800
+
+    added edit page to listings
+
+[33mcommit cafe4d245511d60dee01f8882025e4f9c2c7394c[m
+Merge: 1739470 41448ae
+Author: Loweso <119489421+Loweso@users.noreply.github.com>
+Date:   Mon Apr 22 12:34:10 2024 +0800
+
+    Merge pull request #3 from Loweso/listings
+    
+    added form component in listings page
+
+[33mcommit 17394703e14c413bce91947a7ce234ce8f74bcbe[m
+Merge: ca3161a 57d1f15
+Author: Loweso <119489421+Loweso@users.noreply.github.com>
+Date:   Mon Apr 22 12:33:11 2024 +0800
+
+    Merge pull request #2 from Loweso/userpage
+    
+    add userpage
+
+[33mcommit 41448aeae6d0c3d86bcee079789547b1ae4208c6[m[33m ([m[1;31morigin/listings[m[33m)[m
+Author: Renier Jardio <renierjardio@gmail.com>
+Date:   Mon Apr 22 12:27:09 2024 +0800
+
+    added form component in listings page
+
+[33mcommit 57d1f15c4ad4b75c5fbf2152c27dddc1c8ad6d74[m[33m ([m[1;31morigin/userpage[m[33m)[m
+Author: Bettina Ligero <ligerobc24@gmail.com>
+Date:   Mon Apr 22 12:17:05 2024 +0800
+
+    made a userpage
+
+[33mcommit ca3161a3a596acd200ad378a22e3e9a7019a60bc[m
+Author: powtzulist <delasanarwin@gmail.com>
+Date:   Sun Apr 21 18:48:28 2024 +0800
+
+    added navbar
+
+[33mcommit f214e8c8854796d8b684850bb227c35eb4c54a60[m
+Author: powtzulist <delasanarwin@gmail.com>
+Date:   Sun Apr 21 08:46:28 2024 +0800
+
+    added a drop shadow in google sign in box
+
+[33mcommit 29592f36bb9d88980651dc37cac8431816c6704f[m
+Author: powtzulist <delasanarwin@gmail.com>
+Date:   Sun Apr 21 08:29:02 2024 +0800
+
+    fixed margins in sign in page
+
+[33mcommit d53e52cff299ae5c6149b8ebe638c03e8af06060[m
+Author: powtzulist <delasanarwin@gmail.com>
+Date:   Sun Apr 21 08:23:33 2024 +0800
+
+    sign in page
+
+[33mcommit c5bde1002d27fe62614baac90618c9f47f962d33[m
+Author: powtzulist <delasanarwin@gmail.com>
+Date:   Sun Apr 21 06:11:21 2024 +0800
+
+    supabase authentication and route w/o frontend
+
+[33mcommit 644c093673b92afa8dd1e1227dec1445766ad205[m
+Merge: d40dd15 15bedf9
+Author: Loweso <119489421+Loweso@users.noreply.github.com>
+Date:   Thu Apr 18 11:43:07 2024 +0800
+
+    Merge pull request #1 from Loweso/navbar
+    
+    Erased YO MAMA
+
+[33mcommit 15bedf94ef8fcc07a77a0fafdba65a099528910a[m[33m ([m[1;31morigin/navbar[m[33m)[m
+Author: Loweso <dlouisefermin@gmail.com>
+Date:   Thu Apr 18 11:40:44 2024 +0800
+
+    Erased YO MAMA
+
+[33mcommit d40dd1549a71f55a4ac220f914b4757bde490c01[m
+Author: Loweso <dlouisefermin@gmail.com>
+Date:   Thu Apr 18 11:29:18 2024 +0800
+
+    For the First Time in Forever
+
+[33mcommit fcc048db8f2feab9feee227ee8d0ba0946180d9d[m
+Author: Loweso <dlouisefermin@gmail.com>
+Date:   Thu Apr 18 11:26:31 2024 +0800
+
+    Initial commit from Create Next App
