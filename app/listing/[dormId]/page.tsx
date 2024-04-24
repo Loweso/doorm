@@ -2,10 +2,12 @@ import React from "react";
 import { DormInfo } from "@/components/dormInfo/dormInfo";
 import { DormApply } from "@/components/dormInfo/dormApply";
 import { DormRecc } from "@/components/dormInfo/dormRecc";
+import { Searchbar } from "@/components/search/searchbar";
 
 function page() {
   return (
-    <div className="flex flex-col flex-grow w-full items-center p-20 gap-12">
+    <div className="flex flex-col flex-grow w-full items-center px-20 pb-20 gap-12">
+      <Searchbar />
       <DormInfo />
       <DormApply />
       <p className="font-semibold text-[#B67352] text-4xl mt-12">
