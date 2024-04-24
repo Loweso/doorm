@@ -2,8 +2,6 @@ import React from 'react'
 import Image from "next/image";
 import { FiEdit3 } from "react-icons/fi";
 import { MdOutlineDeleteOutline } from "react-icons/md";
-import { FaCheck } from "react-icons/fa";
-import { ImCross } from "react-icons/im";
 import AppRow from "@/components/applicantsRow/appRow";
 
 const page = () => {
@@ -43,7 +41,7 @@ const page = () => {
             <div className="flex flex-row"> 
                 <div className="w-1/3 h-full flex flex-col items-center m-2"> 
                     <p className="text-base text-[#4E423B] font-semibold"> Full Name: </p>
-                </div>
+                </div>  
                 <div className="w-1/3 h-full flex flex-col items-center m-2"> 
                     <p className="text-base text-[#4E423B] font-semibold"> Price Offer (in Php):  </p>
                 </div>
