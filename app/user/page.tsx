@@ -6,8 +6,8 @@ import { FaList } from "react-icons/fa6";
 
 const page = () => {
   return (
-    <div className="h-[82.3%] flex flex-row ">
-      <div className="w-1/3 bg-[#B67352] flex justify-center items-center">
+    <div className="h-full flex flex-row ">
+      <div className="flex-1 w-1/3 bg-[#B67352] flex flex-col justify-center items-center">
         <Image
           src="/shrekid.jpg"
           height={300}

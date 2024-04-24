@@ -19,7 +19,14 @@ export const Navbar = () => {
   return (
     <nav className="flex w-full p-3 items-center border-b-[1px] text-content-darkBrown font-semibold bg-content-white ">
       <div className="ml-6">
-        <Image src="/logo/doorm.png" width={100} height={50} alt="Doorm Logo" />
+        <Link href="/">
+          <Image
+            src="/logo/doorm.png"
+            width={100}
+            height={50}
+            alt="Doorm Logo"
+          />
+        </Link>
       </div>
       <ul className="ml-auto flex space-x-8 mr-6">
         {links.map((link, index) => {
