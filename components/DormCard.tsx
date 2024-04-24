@@ -3,9 +3,9 @@ import { BsPinAngleFill } from "react-icons/bs";
 
 export const DormCard = () => {
   return (
-    <div className="w-[18%] h-[55%] bg-[#FFFFFF] bg-opacity-80 rounded-xl overflow-hidden shadow-lg">
+    <div className="w-2/3 h-80 bg-[#FFFFFF] bg-opacity-80 rounded-xl overflow-hidden shadow-lg">
       <div className="w-full h-[65%] bg-accentColor-lightBlue"></div>
-      <div className="p-3 font-semibold text-content-darkBrown ">
+      <div className="p-4 font-semibold text-content-darkBrown ">
         <p className="text-2xl">Name</p>
         <div className="flex pt-2 justify-between">
           <p className="font-light text-xs italic ">
