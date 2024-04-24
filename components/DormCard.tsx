@@ -17,12 +17,12 @@ export const DormCard = () => {
           </p>
         </div>
         <div className="flex ps-2 py-2 font-normal text-xs gap-x-6  ">
-          <div className="flex">
-            <BsPinAngleFill size={15} />
+          <div className="flex items-center gap-x-1">
+            <BsPinAngleFill size={10} />
             <span>Amenity</span>
           </div>
-          <div className="flex">
-            <BsPinAngleFill size={15} />
+          <div className="flex items-center gap-x-1">
+            <BsPinAngleFill size={10} />
             <span>Amenity</span>
           </div>
         </div>
