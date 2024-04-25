@@ -12,7 +12,7 @@ export const DormCard = () => {
   const isUserApplicationsRoute =
     usePathname() === `/${params.userId}/applications`;
   return (
-    <div className="w-2/3 h-80 bg-[#FFFFFF] bg-opacity-80 rounded-xl overflow-hidden shadow-lg">
+    <div className="w-80 h-80 bg-[#FFFFFF] bg-opacity-80 rounded-xl overflow-hidden shadow-lg">
       <div className="w-full h-[65%] bg-accentColor-lightBlue"></div>
       <div className="px-4 py-3 font-semibold text-content-darkBrown ">
         <p className="text-2xl">Name</p>

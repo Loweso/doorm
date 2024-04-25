@@ -2,8 +2,10 @@
 import { usePathname } from "next/navigation";
 import { IoMdCloudUpload } from "react-icons/io";
 import { IoMdArrowDropdown } from "react-icons/io";
+import { useParams } from "next/navigation";
 
 export const Forms = () => {
+  const params = useParams<{ dormId: string }>();
   const path = usePathname();
   return (
     <form className="w-1/2 p-8 border-[1px] rounded-lg bg-accentColor-earthyBrown mt-12 mb-12">
@@ -12,7 +14,7 @@ export const Forms = () => {
           Rent out your space...
         </h1>
       )}
-      {path == "/listing/edit" && (
+      {path == `/listing/${params.dormId}/edit` && (
         <h1 className="text-center font-bold text-4xl text-accentColor-earthyYellow">
           Edit your space...
         </h1>

@@ -11,17 +11,19 @@ export default function page() {
     { id: 2, name: "Dorm 2" },
     { id: 3, name: "Dorm 3" },
     { id: 4, name: "Dorm 4" },
+    { id: 6, name: "Dorm 3" },
+    { id: 7, name: "Dorm 4" },
   ];
 
   const [scrollPosition, setScrollPosition] = useState(0);
 
   const scrollLeft = () => {
-    const newPosition = scrollPosition - 1000;
+    const newPosition = scrollPosition - 1300;
     setScrollPosition(Math.max(0, newPosition));
   };
 
   const scrollRight = () => {
-    const newPosition = scrollPosition + 1000;
+    const newPosition = scrollPosition + 1300;
     setScrollPosition(newPosition);
   };
 
@@ -36,7 +38,7 @@ export default function page() {
         </h1>
 
         {/* Container for scrollable dorm cards */}
-        <div className="flex overflow-x-hidden mb-10">
+        <div className="flex mb-10 overflow-x-hidden ">
           {/* Button to scroll left */}
           <button
             className="absolute left-4 bottom-28 transform -translate-y-1/2 z-10 bg-grey-200 rounded-full p-4"
@@ -50,8 +52,11 @@ export default function page() {
           </button>
           {/* Dorm card container */}
           <div
-            className="flex space-x-10 px-8 py-2"
-            style={{ minWidth: "125%", marginLeft: `-${scrollPosition}px` }}
+            className="flex space-x-10 px-8 py-4 transition-transform duration-300"
+            style={{
+              minWidth: "125%",
+              transform: `translateX(-${scrollPosition}px)`,
+            }}
           >
             {/* Mapping dorm listings to DormCard components */}
             {dormListings.map((dorm) => (
