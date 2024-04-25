@@ -1,8 +1,12 @@
+"use client";
 import Image from "next/image";
+import { useParams } from "next/navigation";
 import { IoHeartOutline } from "react-icons/io5";
 import { IoShareSocialOutline } from "react-icons/io5";
 
 export const DormInfo = () => {
+  const { dormId } = useParams();
+
   return (
     <div className="flex flex-col w-3/4 bg-[#FFFFFF] rounded-2xl border-[1px] break-words shadow-lg">
       <div className="h-[50vh] w-full rounded-2xl bg-[#EFEBE3] border-b-[1px]">
