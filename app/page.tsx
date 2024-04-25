@@ -5,7 +5,7 @@ import { Searchbar } from "@/components/search/searchbar";
 import { DormCard } from "@/components/DormCard";
 import { RiArrowLeftSFill, RiArrowRightSFill } from "react-icons/ri";
 
-export default function page() {
+export default function Page() {
   const dormListings = [
     { id: 1, name: "Dorm 1" },
     { id: 2, name: "Dorm 2" },
@@ -13,18 +13,23 @@ export default function page() {
     { id: 4, name: "Dorm 4" },
     { id: 6, name: "Dorm 3" },
     { id: 7, name: "Dorm 4" },
+    { id: 6, name: "Dorm 3" },
+    { id: 7, name: "Dorm 4" },
   ];
 
   const [scrollPosition, setScrollPosition] = useState(0);
+  const [scrollYeet, setScrollYeet] = useState(false);
 
   const scrollLeft = () => {
-    const newPosition = scrollPosition - 1300;
+    const newPosition = scrollPosition - 1500;
     setScrollPosition(Math.max(0, newPosition));
+    setScrollYeet(!scrollYeet);
   };
 
   const scrollRight = () => {
-    const newPosition = scrollPosition + 1300;
+    const newPosition = scrollPosition + 1500;
     setScrollPosition(newPosition);
+    setScrollYeet(!scrollYeet);
   };
 
   return (
@@ -40,21 +45,23 @@ export default function page() {
         {/* Container for scrollable dorm cards */}
         <div className="flex mb-10 overflow-x-hidden ">
           {/* Button to scroll left */}
-          <button
-            className="absolute left-4 bottom-28 transform -translate-y-1/2 z-10 bg-grey-200 rounded-full p-4"
-            onClick={scrollLeft}
-          >
-            <RiArrowLeftSFill
-              size={30}
-              color="text-content-darkBrown"
-              className="absolute pointer-events-none bottom-0 right-0 border-[1px] rounded-lg border-content-darkBrown bg-content-white font-semibold text-xl text-content-darkBrown shadow-md"
-            />
-          </button>
+          {scrollYeet && (
+            <button
+              className="absolute left-4 bottom-28 transform -translate-y-1/2 z-10 bg-grey-200 rounded-full p-4"
+              onClick={scrollLeft}
+            >
+              <RiArrowLeftSFill
+                size={30}
+                color="text-content-darkBrown"
+                className="absolute pointer-events-none bottom-0 right-0 border-[1px] rounded-lg border-content-darkBrown bg-content-white font-semibold text-xl text-content-darkBrown shadow-md"
+              />
+            </button>
+          )}
           {/* Dorm card container */}
           <div
             className="flex space-x-10 px-8 py-4 transition-transform duration-300"
             style={{
-              minWidth: "125%",
+              minWidth: "200%",
               transform: `translateX(-${scrollPosition}px)`,
             }}
           >
@@ -64,16 +71,18 @@ export default function page() {
             ))}
           </div>
           {/* Button to scroll right */}
-          <button
-            className="absolute right-4 bottom-24 transform -translate-y-1/2 z-10 bg-grey-200 rounded-full p-4"
-            onClick={scrollRight}
-          >
-            <RiArrowRightSFill
-              size={30}
-              color="text-content-darkBrown"
-              className="absolute pointer-events-none bottom-0 right-0 border-[1px] rounded-lg border-content-darkBrown bg-content-white font-semibold text-xl text-content-darkBrown shadow-md"
-            />
-          </button>
+          {!scrollYeet && (
+            <button
+              className="absolute right-4 bottom-24 transform -translate-y-1/2 z-10 bg-grey-200 rounded-full p-4"
+              onClick={scrollRight}
+            >
+              <RiArrowRightSFill
+                size={30}
+                color="text-content-darkBrown"
+                className="absolute pointer-events-none bottom-0 right-0 border-[1px] rounded-lg border-content-darkBrown bg-content-white font-semibold text-xl text-content-darkBrown shadow-md"
+              />
+            </button>
+          )}
         </div>
       </div>
 
