@@ -34,7 +34,7 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body className={`${poppins} bg-bgColor`}>
+      <body className={`${poppins} bg-content-white`}>
         {pathname == "/auth" ? null : <Navbar />}
         {children}
         <FooterCom />
