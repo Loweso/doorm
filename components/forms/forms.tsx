@@ -2,13 +2,110 @@
 import { usePathname } from "next/navigation";
 import { IoMdCloudUpload } from "react-icons/io";
 import { IoMdArrowDropdown } from "react-icons/io";
+import { RxCross2 } from "react-icons/rx";
 import { useParams } from "next/navigation";
+import { useState } from "react";
+
+interface FormValues {
+  listingName: string;
+  rentType: string;
+  address: string;
+  amenities: string[];
+  availability: string;
+  description: string;
+  minimum_rent: number;
+  ideal_price: number;
+  room_image: File | null;
+}
 
 export const Forms = () => {
+  const [formData, setFormData] = useState<FormValues>({
+    listingName: "",
+    rentType: "",
+    address: "",
+    amenities: [],
+    availability: "available",
+    description: "",
+    minimum_rent: 0,
+    ideal_price: 0,
+    room_image: null,
+  });
+
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => {
+    const { name, value } = e.target;
+    if (name === "amenities") {
+      // Split the input value by comma
+      const amenityArray = value.split(",");
+      setFormData((prevData) => ({
+        ...prevData,
+        amenities: amenityArray,
+      }));
+    } else {
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    }
+  };
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setFormData((prevData: any) => ({
+        ...prevData,
+        room_image: e.target.files[0],
+      }));
+    }
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    // Merge room amenities into formData.amenities
+    const updatedFormData = {
+      ...formData,
+      amenities: [...formData.amenities, ...roomAmenities],
+    };
+
+    // Submit the form data
+    console.log(updatedFormData);
+
+    // You can perform additional submission logic here
+  };
+
+  const [roomAmenities, setRoomAmenities] = useState<string[]>([]);
+
+  const handleAddAmenity = () => {
+    // Check if there are any amenities entered
+    if (formData.amenities.length > 0) {
+      setRoomAmenities((prevAmenities) => [
+        ...prevAmenities,
+        ...formData.amenities, // Append the array of amenities
+      ]);
+      setFormData((prevData) => ({
+        ...prevData,
+        amenities: [], // Reset the amenities array
+      }));
+    }
+  };
+
+  const handleDeleteAmenity = (index: number) => {
+    setRoomAmenities((prevAmenities) =>
+      prevAmenities.filter((_, i) => i !== index)
+    );
+  };
+
   const params = useParams<{ dormId: string }>();
   const path = usePathname();
+
   return (
-    <form className="w-1/2 p-8 border-[1px] rounded-lg bg-accentColor-earthyBrown mt-12 mb-12">
+    <form
+      onSubmit={handleSubmit}
+      className="w-1/2 p-8 border-[1px] rounded-lg bg-accentColor-earthyBrown mt-12 mb-12"
+    >
       {path == "/listing/new" && (
         <h1 className="text-center font-bold text-4xl text-accentColor-earthyYellow">
           Rent out your space...
@@ -32,6 +129,8 @@ export const Forms = () => {
               type="text"
               id="listingName"
               name="listingName"
+              value={formData.listingName}
+              onChange={handleChange}
               placeholder="E.g. the tortured dormies"
               className="rounded p-2 bg-bgColor text-content-darkBrown font-medium"
             />
@@ -47,6 +146,8 @@ export const Forms = () => {
               <select
                 name="rentType"
                 id="rentType"
+                value={formData.rentType}
+                onChange={handleChange}
                 className="rounded p-2 bg-bgColor w-full cursor-pointer"
               >
                 <option value="boarding_house">Boarding House</option>
@@ -75,55 +176,94 @@ export const Forms = () => {
             type="text"
             id="address"
             name="address"
+            value={formData.address}
+            onChange={handleChange}
             placeholder="E.g. Gorordo Avenue, Lahug, Cebu City"
             className="rounded p-2 bg-bgColor"
           />
         </div>
 
-        <div className="flex gap-x-4">
-          <div className="flex flex-col w-3/5 relative">
-            <label
-              htmlFor="amenities"
-              className="text-xs text-content-white font-medium"
+        <div className="flex flex-col">
+          <div className="flex gap-x-4 w-full">
+            <div
+              className={`flex flex-col  ${
+                path === "/listing/new" ? "w-full" : "w-3/5"
+              } relative`}
             >
-              Room Amenities:
-            </label>
-            <input
-              type="text"
-              id="amenities"
-              name="amenities"
-              placeholder="E.g. Can cook, Own CR, 3 beds..."
-              className="rounded p-2 bg-bgColor"
-            />
-            <div className="absolute bottom-1 right-2">
-              <button className="border-[1px] border-content-darkBrown rounded-lg bg-accentColor-lightBlue font-semibold text-lg text-content-white px-2 ">
-                ADD
-              </button>
-            </div>
-          </div>
-          <div className="flex flex-col w-2/5">
-            <label
-              htmlFor="availability"
-              className="text-xs text-content-white font-medium"
-            >
-              Availability:
-            </label>
-            <div className="relative ">
-              <select
-                name="rentType"
-                id="availability"
-                className="rounded p-2 bg-bgColor w-full cursor-pointer"
+              <label
+                htmlFor="amenities"
+                className="text-xs text-content-white font-medium"
               >
-                <option value="available">Available for rent</option>
-                <option value="occupied">Occupied</option>
-              </select>
-              <IoMdArrowDropdown
-                size={30}
-                color="white"
-                className="absolute pointer-events-none bottom-1 right-1 border-[1px] rounded-lg border-content-darkBrown  bg-accentColor-lightBlue font-semibold text-xl text-content-white shadow-md"
+                Room Amenities:
+              </label>
+              <input
+                type="text"
+                id="amenities"
+                name="amenities"
+                value={formData.amenities}
+                onChange={handleChange}
+                placeholder="E.g. Can cook, Own CR, 3 beds..."
+                className="rounded p-2 bg-bgColor"
               />
+              <div className="absolute bottom-1 right-2">
+                <button
+                  type="button"
+                  onClick={handleAddAmenity}
+                  className="border-[1px] border-content-darkBrown rounded-lg bg-accentColor-lightBlue font-semibold text-lg text-content-white px-2 "
+                >
+                  ADD
+                </button>
+              </div>
             </div>
+
+            {path === `/listing/${params.dormId}/edit` && (
+              <div className="flex flex-col w-2/5 ">
+                <label
+                  htmlFor="availability"
+                  className="text-xs text-content-white font-medium"
+                >
+                  Availability:
+                </label>
+                <div className="relative ">
+                  <select
+                    name="availability"
+                    id="availability"
+                    value={formData.availability}
+                    onChange={handleChange}
+                    className="rounded p-2 bg-bgColor w-full cursor-pointer"
+                  >
+                    <option value="available">Available for rent</option>
+                    <option value="occupied">Occupied</option>
+                  </select>
+                  <IoMdArrowDropdown
+                    size={30}
+                    color="white"
+                    className="absolute pointer-events-none bottom-1 right-1 border-[1px] rounded-lg border-content-darkBrown  bg-accentColor-lightBlue font-semibold text-xl text-content-white shadow-md"
+                  />
+                </div>
+              </div>
+            )}
           </div>
+          {roomAmenities.length > 0 && (
+            <div className="flex w-3/5 gap-x-2 mt-1">
+              {roomAmenities.map((amenity, index) => (
+                <div
+                  className="flex bg-accentColor-lightBlue border-content-darkBrown border-[1px] px-2 rounded-full text-content-white gap-x-1"
+                  key={index}
+                >
+                  <span key={index} className="text-xs  mt-1     ">
+                    {amenity}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => handleDeleteAmenity(index)}
+                  >
+                    <RxCross2 />
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
         <div className="flex flex-col">
@@ -136,6 +276,8 @@ export const Forms = () => {
           <textarea
             id="description"
             name="description"
+            value={formData.description}
+            onChange={handleChange}
             className="rounded p-2 bg-bgColor"
           ></textarea>
         </div>
@@ -151,6 +293,8 @@ export const Forms = () => {
                   type="number"
                   id="minimum_rent"
                   name="minimum_rent"
+                  value={formData.minimum_rent}
+                  onChange={handleChange}
                   className="rounded p-2 bg-bgColor"
                 />
                 <label
@@ -165,6 +309,8 @@ export const Forms = () => {
                   type="number"
                   id="ideal_price"
                   name="ideal_price"
+                  value={formData.ideal_price}
+                  onChange={handleChange}
                   className="rounded p-2 bg-bgColor"
                 />
                 <label
@@ -191,6 +337,7 @@ export const Forms = () => {
               type="file"
               id="room_image"
               name="room_image"
+              onChange={(e) => handleImageChange(e)}
               className="hidden"
             />
           </div>
