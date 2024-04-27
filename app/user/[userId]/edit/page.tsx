@@ -22,7 +22,7 @@ const Page = () => {
 
   return (
     <form className="h-full flex flex-row">
-      <div className="flex w-1/3 bg-[#B67352] flex flex-col justify-center items-center">
+      <div className="w-1/3 bg-[#B67352] flex flex-col justify-center items-center">
         <Image
           src="/shrekid.jpg"
           height={300}

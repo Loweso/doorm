@@ -8,9 +8,9 @@ import { useParams } from "next/navigation";
 
 export const DormCard = () => {
   const params = useParams<{ userId: string }>();
-  const isUserListingRoute = usePathname() === `/${params.userId}/listing`;
+  const isUserListingRoute = usePathname() === `/user/${params.userId}/listing`;
   const isUserApplicationsRoute =
-    usePathname() === `/${params.userId}/applications`;
+    usePathname() === `/user/${params.userId}/applications`;
   return (
     <div className="w-80 h-80 bg-[#FFFFFF] bg-opacity-80 rounded-xl overflow-hidden shadow-lg">
       <div className="w-full h-[65%] bg-accentColor-lightBlue"></div>
