@@ -1,10 +1,18 @@
+"use client";
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { FiEdit3 } from "react-icons/fi";
 import { MdOutlineDeleteOutline } from "react-icons/md";
 import { FaList } from "react-icons/fa6";
 
-const page = () => {
+export default function Page({
+  params,
+}: {
+  params: {
+    userId: string;
+  };
+}) {
   return (
     <div className="h-full flex flex-row ">
       <div className="flex-1 w-1/3 bg-[#B67352] flex flex-col justify-center items-center">
@@ -51,34 +59,38 @@ const page = () => {
               </div>
             </div>
             <div className="w-1/6 h-full justify-end flex items-center flex-col gap-4">
-              <button className="w-16 h-16 bg-[#ECB159] border-[1px] rounded-lg border-gray-800 flex justify-center items-center hover:bg-[#99733B]">
-                <FiEdit3 color="white" className="w-10 h-10 " />
-              </button>
+              <Link href={`./${params.userId}/edit`}>
+                <button className="w-16 h-16 bg-[#ECB159] border-[1px] rounded-lg border-gray-800 flex justify-center items-center hover:bg-[#99733B]">
+                  <FiEdit3 color="white" className="w-10 h-10 " />
+                </button>
+              </Link>
               <button className="w-16 h-16 bg-[#B67352] border-[1px] rounded-lg border-gray-800 flex justify-center items-center hover:bg-[#905B40]">
                 <MdOutlineDeleteOutline color="white" className="w-12 h-12 " />
               </button>
             </div>
           </div>
           <div className="w-full h-1/4 flex justify-center items-center space-x-8">
-            <button className="w-64 h-16 bg-[#DEDAD1] border-[1px] space-x-4 rounded-lg border-gray-800 flex justify-center items-center hover:bg-[#D1CEC9] shadow-lg">
-              <FaList color="#6D5D55" className="w-8 h-8" />
-              <p className="text-2xl text-[#6D5D55] font-medium">
-                {" "}
-                Your Listings
-              </p>
-            </button>
-            <button className="w-80 h-16 bg-[#DEDAD1] border-[1px] space-x-4 rounded-lg border-gray-800 flex justify-center items-center hover:bg-[#D1CEC9] shadow-lg">
-              <FaList color="#6D5D55" className="w-8 h-8" />
-              <p className="text-2xl text-[#6D5D55] font-medium">
-                {" "}
-                Your Applications
-              </p>
-            </button>
+            <Link href={`./${params.userId}/listing`}>
+              <button className="w-64 h-16 bg-[#DEDAD1] border-[1px] space-x-4 rounded-lg border-gray-800 flex justify-center items-center hover:bg-[#D1CEC9] shadow-lg">
+                <FaList color="#6D5D55" className="w-8 h-8" />
+                <p className="text-2xl text-[#6D5D55] font-medium">
+                  {" "}
+                  Your Listings
+                </p>
+              </button>
+            </Link>
+            <Link href={`./${params.userId}/applications`}>
+              <button className="w-80 h-16 bg-[#DEDAD1] border-[1px] space-x-4 rounded-lg border-gray-800 flex justify-center items-center hover:bg-[#D1CEC9] shadow-lg">
+                <FaList color="#6D5D55" className="w-8 h-8" />
+                <p className="text-2xl text-[#6D5D55] font-medium">
+                  {" "}
+                  Your Applications
+                </p>
+              </button>
+            </Link>
           </div>
         </div>
       </div>
     </div>
   );
-};
-
-export default page;
+}
