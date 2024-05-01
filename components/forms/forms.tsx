@@ -1,12 +1,15 @@
 "use client";
+import axios from "axios";
 import { usePathname } from "next/navigation";
 import { IoMdCloudUpload } from "react-icons/io";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { RxCross2 } from "react-icons/rx";
 import { useParams } from "next/navigation";
 import { useState } from "react";
+import { userStore } from "@/store/userStore";
 
 interface FormValues {
+  user_Id: string | undefined;
   listingName: string;
   rentType: string;
   address: string;
@@ -19,7 +22,9 @@ interface FormValues {
 }
 
 export const Forms = () => {
+  const user = userStore((state) => state.user);
   const [formData, setFormData] = useState<FormValues>({
+    user_Id: user?.user_ID,
     listingName: "",
     rentType: "",
     address: "",
@@ -61,19 +66,22 @@ export const Forms = () => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     // Merge room amenities into formData.amenities
     const updatedFormData = {
       ...formData,
-      amenities: [...formData.amenities, ...roomAmenities],
     };
 
     // Submit the form data
     console.log(updatedFormData);
 
-    // You can perform additional submission logic here
+    try {
+      await axios.post("http://localhost:5000/listing/new", updatedFormData);
+    } catch (error) {
+      console.error("Error inserting listing:", error);
+    }
   };
 
   const [roomAmenities, setRoomAmenities] = useState<string[]>([]);
