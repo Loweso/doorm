@@ -7,6 +7,7 @@ import { RxCross2 } from "react-icons/rx";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 import { userStore } from "@/store/userStore";
+import { useRouter } from "next/navigation";
 
 interface FormValues {
   user_Id: string | undefined;
@@ -22,11 +23,12 @@ interface FormValues {
 }
 
 export const Forms = () => {
+  const router = useRouter();
   const user = userStore((state) => state.user);
   const [formData, setFormData] = useState<FormValues>({
     user_Id: user?.user_ID,
     listingName: "",
-    rentType: "",
+    rentType: "boarding house",
     address: "",
     amenities: [],
     availability: "available",
@@ -79,6 +81,7 @@ export const Forms = () => {
 
     try {
       await axios.post("http://localhost:5000/listing/new", updatedFormData);
+      router.push("/");
     } catch (error) {
       console.error("Error inserting listing:", error);
     }

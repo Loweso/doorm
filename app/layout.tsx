@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { Navbar } from "@/components/navigation/navbar";
 import { usePathname } from "next/navigation";
 import "./globals.css";
@@ -8,6 +9,7 @@ import { FooterCom } from "@/components/footer";
 import { userStore } from "@/store/userStore";
 import { useEffect } from "react";
 import axios from "axios";
+import { Router } from "next/router";
 
 export default function RootLayout({
   children,
@@ -15,7 +17,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const pathname = usePathname();
+  const user = userStore((state) => state.user);
   const setUser = userStore((state) => state.setUser);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -31,6 +35,12 @@ export default function RootLayout({
     };
     fetchUser();
   }, [setUser]);
+
+  if (!user && !["/listing", "/auth", "/"].includes(pathname)) {
+    router.push("/auth");
+  } else if (user && ["/auth"].includes(pathname)) {
+    router.push("/");
+  }
 
   return (
     <html lang="en">
