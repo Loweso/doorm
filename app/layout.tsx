@@ -38,8 +38,10 @@ export default function RootLayout({
 
   if (!user && !["/listing", "/auth", "/"].includes(pathname)) {
     router.push("/auth");
+    return null;
   } else if (user && ["/auth"].includes(pathname)) {
     router.push("/");
+    return null;
   }
 
   return (
