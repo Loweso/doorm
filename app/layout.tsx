@@ -9,7 +9,6 @@ import { FooterCom } from "@/components/footer";
 import { userStore } from "@/store/userStore";
 import { useEffect } from "react";
 import axios from "axios";
-import { Router } from "next/router";
 
 export default function RootLayout({
   children,

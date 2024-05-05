@@ -14,7 +14,6 @@ interface FormValues {
   listingName: string;
   rentType: string;
   address: string;
-  amenities: string[];
   availability: string;
   description: string;
   minimum_rent: number;
@@ -22,15 +21,20 @@ interface FormValues {
   room_image: File | null;
 }
 
+interface Amenities {
+  amenities: string[];
+}
 export const Forms = () => {
   const router = useRouter();
   const user = userStore((state) => state.user);
+  const [amenities, setAmenities] = useState<Amenities>({
+    amenities: [],
+  });
   const [formData, setFormData] = useState<FormValues>({
     user_Id: user?.user_ID,
     listingName: "",
     rentType: "boarding house",
     address: "",
-    amenities: [],
     availability: "available",
     description: "",
     minimum_rent: 0,
@@ -47,7 +51,7 @@ export const Forms = () => {
     if (name === "amenities") {
       // Split the input value by comma
       const amenityArray = value.split(",");
-      setFormData((prevData) => ({
+      setAmenities((prevData) => ({
         ...prevData,
         amenities: amenityArray,
       }));
@@ -70,10 +74,9 @@ export const Forms = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    // Merge room amenities into formData.amenities
     const updatedFormData = {
       ...formData,
+      roomAmenities,
     };
 
     // Submit the form data
@@ -81,25 +84,26 @@ export const Forms = () => {
 
     try {
       await axios.post("http://localhost:5000/listing/new", updatedFormData);
-      router.push("/");
     } catch (error) {
       console.error("Error inserting listing:", error);
     }
+    router.push("/");
   };
 
   const [roomAmenities, setRoomAmenities] = useState<string[]>([]);
 
   const handleAddAmenity = () => {
-    // Check if there are any amenities entered
-    if (formData.amenities.length > 0) {
+    if (roomAmenities.length < 3) {
+      // Append the array of amenities and clear the field
       setRoomAmenities((prevAmenities) => [
         ...prevAmenities,
-        ...formData.amenities, // Append the array of amenities
+        ...amenities.amenities, // Append the array of amenities
       ]);
-      setFormData((prevData) => ({
-        ...prevData,
-        amenities: [], // Reset the amenities array
-      }));
+      // Reset the amenities array
+      setAmenities({ amenities: [] });
+    } else {
+      // Display a message or handle the case where the limit is reached
+      alert(`You can only add up to 3 amenities.`);
     }
   };
 
@@ -211,7 +215,7 @@ export const Forms = () => {
                 type="text"
                 id="amenities"
                 name="amenities"
-                value={formData.amenities}
+                value={amenities.amenities}
                 onChange={handleChange}
                 placeholder="E.g. Can cook, Own CR, 3 beds..."
                 className="rounded p-2 bg-bgColor"
