@@ -1,11 +1,30 @@
 "use client";
+import axios from "axios";
 import Image from "next/image";
-import { useParams } from "next/navigation";
+import { useState, useEffect } from "react";
 import { IoHeartOutline } from "react-icons/io5";
 import { IoShareSocialOutline } from "react-icons/io5";
 
-export const DormInfo = () => {
-  const { dormId } = useParams();
+interface Props {
+  dormId: string;
+}
+export const DormInfo: React.FC<Props> = ({ dormId }) => {
+  const [dormInfo, setDormInfo] = useState<any>(null);
+
+  useEffect(() => {
+    const fetchDormInfo = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:5000/listing/read/${dormId}`
+        );
+        setDormInfo(response.data);
+      } catch (error) {
+        console.error("Error fetching dorm information:", error);
+      }
+    };
+
+    fetchDormInfo();
+  }, [dormId]);
 
   return (
     <div className="flex flex-col w-3/4 bg-[#FFFFFF] rounded-2xl border-[1px] break-words shadow-lg">
@@ -19,10 +38,14 @@ export const DormInfo = () => {
             className="w-1/3 h-full rounded-lg"
           />
           <div className="flex flex-col justify-between w-2/3 h-full p-6 items-between">
-            <p className="text-3xl font-semibold">Shrek&apos;s Shrexy Swamp</p>
+            <p className="text-3xl font-semibold">
+              {dormInfo && dormInfo.listingName.toUpperCase()}
+            </p>
             <p className="flex justify-between">
-              Date Posted: 01-03-04
-              <span className="justify-between">Availability</span>
+              Date Posted: {dormInfo && dormInfo.createdAt}
+              <span className="justify-between">
+                {dormInfo && dormInfo.availability}
+              </span>
             </p>
           </div>
           <button className="flex items-center h-10 p-2">
@@ -47,26 +70,18 @@ export const DormInfo = () => {
       </div>
       <div className="flex flex-col p-12 gap-6">
         <p className="text-xl font-semibold">Description</p>
-        <p className="text-justify">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-          congue urna a sem congue, dignissim dapibus neque suscipit. Maecenas
-          consectetur tempus lacus eget pulvinar. Nulla dignissim, nulla in
-          ultricies gravida, ipsum mi posuere neque, consequat suscipit diam
-          mauris vitae leo. Suspendisse potenti. Nulla iaculis volutpat tempor.
-          Sed maximus ante vel ornare tempor. Proin tincidunt nulla a metus
-          ultricies, nec sodales turpis varius.
-        </p>
+        <p className="text-justify">{dormInfo && dormInfo.description}</p>
         <p>
           <span className="text-xl font-semibold">Property Type</span>
-          &nbsp; Type
+          &nbsp; {dormInfo && dormInfo.rentType}
         </p>
         <p>
           <span className="text-xl font-semibold">Location</span>
-          &nbsp; Location
+          &nbsp; {dormInfo && dormInfo.address}
         </p>
         <p>
           <span className="text-xl font-semibold">Price</span>
-          &nbsp; Price
+          &nbsp; {dormInfo && dormInfo.ideal_price}
         </p>
         <p className="text-xl font-semibold">Amenities</p>
         <p className="ml-[2vw]">
@@ -78,11 +93,11 @@ export const DormInfo = () => {
         </p>
         <p className="text-xl font-semibold">Contact Person</p>
         <p className="ml-[2vw]">
-          Shrek the Third
+          {dormInfo && dormInfo.user_fullName}
           <br />
-          0927-SHREX-0101
+          {dormInfo && dormInfo.user_contactNo}
           <br />
-          shrexy69@gmail.com.uk
+          {dormInfo && dormInfo.user_email}
         </p>
       </div>
     </div>

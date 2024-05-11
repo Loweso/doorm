@@ -5,13 +5,17 @@ import { DormRecc } from "@/components/dormInfo/dormRecc";
 import { Searchbar } from "@/components/search/searchbar";
 import { userStore } from "@/store/userStore";
 
-function page() {
-  const user = userStore((state) => state.user);
+function page({
+  params,
+}: {
+  params: {
+    dormId: string;
+  };
+}) {
   return (
-    user &&
     <div className="flex flex-col flex-grow w-full items-center px-20 pb-20 gap-12">
       <Searchbar />
-      <DormInfo />
+      <DormInfo dormId={params.dormId} />
       <DormApply />
       <p className="font-semibold text-[#B67352] text-4xl mt-12">
         You might also be interested in...

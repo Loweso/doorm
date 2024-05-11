@@ -38,7 +38,7 @@ export default function Page({
               <div>
                 <p className="text-2xl text-[#B67352] font-semibold">UserID:</p>
                 <p className="font-semibold text-2xl text-[#6D5D55]">
-                  2024-0923803
+                  {params.userId}
                 </p>
               </div>
               <div>
