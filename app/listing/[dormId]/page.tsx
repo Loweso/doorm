@@ -3,6 +3,7 @@ import { DormInfo } from "@/components/dormInfo/dormInfo";
 import { DormApply } from "@/components/dormInfo/dormApply";
 import { DormRecc } from "@/components/dormInfo/dormRecc";
 import { Searchbar } from "@/components/search/searchbar";
+import { userStore } from "@/store/userStore";
 
 function page({
   params,
