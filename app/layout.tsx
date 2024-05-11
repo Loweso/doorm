@@ -43,6 +43,7 @@ export default function RootLayout({
     return null;
   }
  */
+
   return (
     <html lang="en">
       <body className={`${poppins} bg-content-white`}>

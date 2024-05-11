@@ -84,20 +84,22 @@ export const DormInfo: React.FC<Props> = ({ dormId }) => {
           &nbsp; {dormInfo && dormInfo.ideal_price}
         </p>
         <p className="text-xl font-semibold">Amenities</p>
-        <p className="ml-[2vw]">
-          Amenities
-          <br />
-          Amenities
-          <br />
-          Amenities
-        </p>
+        {dormInfo && dormInfo.features ? (
+          dormInfo.features.map((feature: string) => (
+            <p key={feature} className="ml-[2vw]">
+              {feature}
+            </p>
+          ))
+        ) : (
+          <p>No features available</p>
+        )}
         <p className="text-xl font-semibold">Contact Person</p>
         <p className="ml-[2vw]">
           {dormInfo && dormInfo.user_fullName}
           <br />
-          {dormInfo && dormInfo.user_contactNo}
-          <br />
           {dormInfo && dormInfo.user_email}
+          <br />
+          {dormInfo && dormInfo.user_contactNo}
         </p>
       </div>
     </div>
