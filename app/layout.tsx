@@ -21,7 +21,6 @@ export default function RootLayout({
   const user = userStore((state) => state.user);
   const setUser = userStore((state) => state.setUser);
   const router = useRouter();
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -38,17 +37,16 @@ export default function RootLayout({
     fetchUser();
   }, [setUser]);
 
-  useEffect(() => {
-    if (
-      (!user && pathname.endsWith(`/edit`)) ||
+  if (
+    !user &&
+    (pathname.endsWith(`/edit`) ||
       pathname.endsWith(`/application`) ||
-      pathname.endsWith("/new")
-    ) {
-      router.push("/auth");
-    } else if (user && pathname === "/auth") {
-      router.push("/");
-    }
-  }, [user, pathname, router, params]);
+      pathname.endsWith("/new"))
+  ) {
+    router.push("/auth");
+  } else if (user && pathname === "/auth") {
+    router.push("/");
+  }
 
   return (
     <html lang="en">
