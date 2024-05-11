@@ -35,14 +35,14 @@ export default function RootLayout({
     fetchUser();
   }, [setUser]);
 
-  if (!user && !["/listing", "/auth", "/"].includes(pathname)) {
+  /*  if (!user && !["/listing", "/auth", "/"].includes(pathname)) {
     router.push("/auth");
     return null;
   } else if (user && ["/auth"].includes(pathname)) {
     router.push("/");
     return null;
   }
-
+ */
   return (
     <html lang="en">
       <body className={`${poppins} bg-content-white`}>
