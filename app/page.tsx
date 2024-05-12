@@ -1,5 +1,6 @@
 "use client";
-import { useState } from "react";
+import axios from "axios";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Searchbar } from "@/components/search/searchbar";
 import { DormCard } from "@/components/DormCard";
@@ -7,17 +8,6 @@ import { RiArrowLeftSFill, RiArrowRightSFill } from "react-icons/ri";
 import { About } from "@/components/About";
 
 export default function Page() {
-  const dormListings = [
-    { id: 1, name: "Dorm 1" },
-    { id: 2, name: "Dorm 2" },
-    { id: 3, name: "Dorm 3" },
-    { id: 4, name: "Dorm 4" },
-    { id: 6, name: "Dorm 3" },
-    { id: 7, name: "Dorm 4" },
-    { id: 6, name: "Dorm 3" },
-    { id: 7, name: "Dorm 4" },
-  ];
-
   const [scrollPosition, setScrollPosition] = useState(0);
   const [scrollYeet, setScrollYeet] = useState(false);
 
@@ -32,6 +22,21 @@ export default function Page() {
     setScrollPosition(newPosition);
     setScrollYeet(!scrollYeet);
   };
+
+  const [dormListings, setDormListings] = useState<any>(null);
+
+  useEffect(() => {
+    const fetchDormInfo = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5000/listing/read/`);
+        setDormListings(response.data);
+      } catch (error) {
+        console.error("Error fetching dorm information:", error);
+      }
+    };
+
+    fetchDormInfo();
+  }, []);
 
   return (
     <div className="space-y-8">
@@ -67,9 +72,10 @@ export default function Page() {
             }}
           >
             {/* Mapping dorm listings to DormCard components */}
-            {dormListings.map((dorm) => (
-              <DormCard key={dorm.id} />
-            ))}
+            {dormListings &&
+              dormListings.map((dorm: any) => (
+                <DormCard key={dorm.id} dormId={dorm.dormId} />
+              ))}
           </div>
           {/* Button to scroll right */}
           {!scrollYeet && (
