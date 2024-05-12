@@ -7,7 +7,9 @@ import { userStore } from "@/store/userStore";
 
 export const Navbar = () => {
   const user = userStore((state) => state.user);
+  const { clearUser } = userStore();
   const logout = () => {
+    clearUser();
     window.open("http://localhost:5000/logout", "_self");
   };
 
@@ -34,7 +36,7 @@ export const Navbar = () => {
         {user && (
           <>
             <li className="flex items-center py-2 px-3 border-[1px] rounded-lg bg-accentColor-earthyYellow bg-opacity-35">
-              <Link href="/listing" className="flex gap-x-1">
+              <Link href="/listing/new" className="flex gap-x-1">
                 <GoPencil size={25} />
                 Create new listing
               </Link>
@@ -46,14 +48,16 @@ export const Navbar = () => {
             >
               Logout
             </li>
-            <div className="rounded-full w-10 h-10 overflow-hidden">
-              <Image
-                src={user.profilePicture}
-                width={100}
-                height={50}
-                alt="Doorm Logo"
-              />
-            </div>
+            <Link href={`/user/${user.user_ID}`}>
+              <div className="rounded-full w-10 h-10 overflow-hidden">
+                <Image
+                  src={user.profilePicture}
+                  width={100}
+                  height={50}
+                  alt="Doorm Logo"
+                />
+              </div>
+            </Link>
           </>
         )}
         {!user && (

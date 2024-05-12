@@ -9,6 +9,7 @@ import { FooterCom } from "@/components/footer";
 import { userStore } from "@/store/userStore";
 import { useEffect } from "react";
 import { useState } from "react";
+
 import axios from "axios";
 
 export default function RootLayout({
@@ -17,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const pathname = usePathname();
-  const params = useParams<{ dormId: string }>();
+  const [loading, setLoading] = useState(true);
   const user = userStore((state) => state.user);
   const setUser = userStore((state) => state.setUser);
   const router = useRouter();
@@ -32,29 +33,46 @@ export default function RootLayout({
         setUser(response.data[0]);
       } catch (e) {
         console.log("failed to fetch");
+      } finally {
+        setLoading(false);
       }
     };
     fetchUser();
   }, [setUser]);
 
-  if (
-    !user &&
-    (pathname.endsWith(`/edit`) ||
-      pathname.endsWith(`/application`) ||
-      pathname.endsWith("/new"))
-  ) {
-    router.push("/auth");
-  } else if (user && pathname === "/auth") {
-    router.push("/");
-  }
+  useEffect(() => {
+    if (!loading) {
+      if (
+        !user &&
+        (pathname.endsWith(`/edit`) ||
+          pathname.endsWith(`/application`) ||
+          pathname.endsWith("/new") ||
+          pathname.startsWith("/user"))
+      ) {
+        router.push("/auth");
+      } else if (user && pathname === "/auth") {
+        router.push("/");
+      }
+    }
+  }, [user, loading, router, pathname]);
 
-  return (
-    <html lang="en">
-      <body className={`${poppins} bg-content-white`}>
-        {pathname == "/auth" ? null : <Navbar />}
-        {children}
-        <FooterCom />
-      </body>
-    </html>
-  );
+  if (loading) {
+    return (
+      <html lang="en">
+        <body>
+          <div></div>
+        </body>
+      </html>
+    );
+  } else {
+    return (
+      <html lang="en">
+        <body className={`${poppins} bg-content-white`}>
+          {pathname === "/auth" ? null : <Navbar />}
+          {children}
+          <FooterCom />
+        </body>
+      </html>
+    );
+  }
 }
