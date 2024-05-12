@@ -2,6 +2,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { Searchbar } from "@/components/search/searchbar";
 import { DormCard } from "@/components/DormCard";
 import { RiArrowLeftSFill, RiArrowRightSFill } from "react-icons/ri";
@@ -12,13 +13,13 @@ export default function Page() {
   const [scrollYeet, setScrollYeet] = useState(false);
 
   const scrollLeft = () => {
-    const newPosition = scrollPosition - 1500;
+    const newPosition = scrollPosition - 1300;
     setScrollPosition(Math.max(0, newPosition));
     setScrollYeet(!scrollYeet);
   };
 
   const scrollRight = () => {
-    const newPosition = scrollPosition + 1500;
+    const newPosition = scrollPosition + 1300;
     setScrollPosition(newPosition);
     setScrollYeet(!scrollYeet);
   };
@@ -74,7 +75,9 @@ export default function Page() {
             {/* Mapping dorm listings to DormCard components */}
             {dormListings &&
               dormListings.map((dorm: any) => (
-                <DormCard key={dorm.id} dormId={dorm.dormId} />
+                <Link href={`/listing/${dorm.dormId}`} key={dorm.id}>
+                  <DormCard dormId={dorm.dormId} />
+                </Link>
               ))}
           </div>
           {/* Button to scroll right */}

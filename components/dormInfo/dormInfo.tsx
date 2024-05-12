@@ -1,31 +1,29 @@
 "use client";
-import axios from "axios";
 import Image from "next/image";
-import { useState, useEffect } from "react";
 import { IoHeartOutline } from "react-icons/io5";
 import { IoShareSocialOutline } from "react-icons/io5";
 
-interface Props {
-  dormId: string;
+interface DormInfo {
+  user_ID?: string | null;
+  listingName: string;
+  rentType: string;
+  address: string;
+  availability: string;
+  description: string;
+  minimum_rent: number;
+  ideal_price: number;
+  room_image?: Buffer | null;
+  createdAt: string;
+  user_email: string;
+  user_fullName: string;
+  user_contactNo: string;
+  features: string[];
 }
-export const DormInfo: React.FC<Props> = ({ dormId }) => {
-  const [dormInfo, setDormInfo] = useState<any>(null);
 
-  useEffect(() => {
-    const fetchDormInfo = async () => {
-      try {
-        const response = await axios.get(
-          `http://localhost:5000/listing/read/${dormId}`
-        );
-        setDormInfo(response.data);
-      } catch (error) {
-        console.error("Error fetching dorm information:", error);
-      }
-    };
-
-    fetchDormInfo();
-  }, [dormId]);
-
+interface Props {
+  dormInfo: DormInfo;
+}
+export const DormInfo: React.FC<Props> = ({ dormInfo }) => {
   return (
     <div className="flex flex-col w-3/4 bg-[#FFFFFF] rounded-2xl border-[1px] break-words shadow-lg">
       <div className="h-[50vh] w-full rounded-2xl bg-[#EFEBE3] border-b-[1px]">

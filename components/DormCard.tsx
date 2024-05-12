@@ -37,14 +37,14 @@ export const DormCard: React.FC<Props> = ({ dormId }) => {
 
   return (
     <div className="w-80 h-80 bg-[#FFFFFF] bg-opacity-80 rounded-xl overflow-hidden shadow-lg">
-      <div className="w-full h-[65%] bg-accentColor-lightBlue"></div>
+      <div className="w-full h-[63%] bg-accentColor-lightBlue"></div>
       <div className="px-4 py-3 font-semibold text-content-darkBrown ">
         <p className="text-2xl">{dormInfo && dormInfo.listingName}</p>
-        <div className="flex  justify-between py-1">
-          <p className="font-light text-xs italic ">
+        <div className="flex flex-col py-1">
+          <p className="font-light text-xs italic w-1/2">
             by <span>{dormInfo && dormInfo.user_fullName}</span>
           </p>
-          <p className="font-normal items-center text-xs flex gap-x-[1px]">
+          <p className="font-normal  text-xs flex  gap-x-[1px] mt-1 ">
             <PiMapPinFill size={15} />
             {dormInfo && dormInfo.address}
           </p>
@@ -52,7 +52,7 @@ export const DormCard: React.FC<Props> = ({ dormId }) => {
         {!isUserListingRoute &&
           !isUserApplicationsRoute &&
           (dormInfo && dormInfo.features ? (
-            <div className="flex ps-2 pt-3 font-normal text-xs gap-x-6">
+            <div className="flex ps-2 pt-1  font-normal text-xs gap-x-6">
               {dormInfo.features.map((feature: string, index: number) => (
                 <div key={index} className="flex items-center gap-x-1">
                   <BsPinAngleFill size={10} />
