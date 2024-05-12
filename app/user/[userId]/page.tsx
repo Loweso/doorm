@@ -7,36 +7,41 @@ import { FiEdit3 } from "react-icons/fi";
 import { MdDone } from "react-icons/md";
 import { FaList } from "react-icons/fa6";
 import axios from "axios";
+import { RxCross1 } from "react-icons/rx";
 
 export default function Page() {
   const user = userStore((state) => state.user);
   const [phoneNum, setPhoneNum] = useState(user?.contactNum);
+  const [uneditedNum, setUneditedNum] = useState(phoneNum);
   const [editPhone, setEditPhone] = useState<boolean>(false);
   const editPhoneNum = () => {
+    setUneditedNum(phoneNum);
     setEditPhone(!editPhone);
-    if (editPhone) {
-      updatePhoneNumber(phoneNum);
-    }
+  };
+  const cancelChange = () => {
+    setPhoneNum(uneditedNum);
+    setEditPhone(!editPhone);
   };
 
   const handleInputChange = (e: any) => {
     setPhoneNum(e.target.value);
   };
 
-  const updatePhoneNumber = async (phoneNumber: any) => {
+  const updatePhoneNumber = async () => {
     try {
       // Make a POST request to your backend API endpoint to update the phone number
       const response = await axios.put(
         `http://localhost:5000/user/${user?.user_ID}/edit`,
         {
-          phoneNumber: phoneNumber,
+          phoneNumber: phoneNum,
         }
-      )
+      );
       console.log("Phone number updated successfully:", response.data);
     } catch (error) {
       console.error("Error updating phone number:", error);
       // Handle error, such as displaying an error message to the user
     }
+    setEditPhone(!editPhone);
   };
 
   return (
@@ -111,15 +116,30 @@ export default function Page() {
                 )}
               </div>
               <div className="w-1/6 h-full justify-end flex items-center flex-col gap-4">
-                <button
-                  className="w-16 h-16 bg-[#ECB159] border-[1px] rounded-lg border-gray-800 flex justify-center items-center hover:bg-[#99733B]"
-                  onClick={editPhoneNum}
-                >
-                  {!editPhone && (
+                {!editPhone && (
+                  <button
+                    className="w-16 h-16 bg-[#ECB159] border-[1px] rounded-lg border-gray-800 flex justify-center items-center hover:bg-[#99733B]"
+                    onClick={editPhoneNum}
+                  >
                     <FiEdit3 color="white" className="w-10 h-10 " />
-                  )}
-                  {editPhone && <MdDone color="white" className="w-10 h-10 " />}
-                </button>
+                  </button>
+                )}
+                {editPhone && (
+                  <button
+                    className="w-16 h-16 bg-[#ec8559] border-[1px] rounded-lg border-gray-800 flex justify-center items-center hover:bg-[#99733B]"
+                    onClick={updatePhoneNumber}
+                  >
+                    <MdDone color="white" className="w-10 h-10 " />
+                  </button>
+                )}
+                {editPhone && (
+                  <button
+                    className="w-16 h-16 bg-[#ec8559] border-[1px] rounded-lg border-gray-800 flex justify-center items-center hover:bg-[#99733B]"
+                    onClick={cancelChange}
+                  >
+                    <RxCross1 color="white" className="w-10 h-10 " />
+                  </button>
+                )}
               </div>
             </div>
             <div className="w-full h-1/4 flex justify-center items-center space-x-8">
