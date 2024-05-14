@@ -16,8 +16,7 @@ interface FormValues {
   address: string;
   availability: string;
   description: string;
-  minimum_rent: number;
-  ideal_price: number;
+  rent: number;
 }
 
 interface Amenities {
@@ -37,8 +36,7 @@ export const Forms = () => {
     address: "",
     availability: "available",
     description: "",
-    minimum_rent: 0,
-    ideal_price: 0,
+    rent: 0,
   });
 
   const [room_image, setRoom_Image] = useState(null);
@@ -126,6 +124,7 @@ export const Forms = () => {
         ...prevAmenities,
         ...amenities.amenities, // Append the array of amenities
       ]);
+
       // Reset the amenities array
       setAmenities({ amenities: [] });
     } else {
@@ -353,33 +352,17 @@ export const Forms = () => {
               <div className="flex flex-col w-6/12">
                 <input
                   type="number"
-                  id="minimum_rent"
-                  name="minimum_rent"
-                  value={formData.minimum_rent}
+                  id="rent"
+                  name="rent"
+                  value={formData.rent}
                   onChange={handleChange}
                   className="rounded p-2 bg-bgColor"
                 />
                 <label
-                  htmlFor="minimum_rent"
+                  htmlFor="rent"
                   className="text-xs text-content-white font-medium"
                 >
                   Starting minimum
-                </label>
-              </div>
-              <div className="flex flex-col w-6/12">
-                <input
-                  type="number"
-                  id="ideal_price"
-                  name="ideal_price"
-                  value={formData.ideal_price}
-                  onChange={handleChange}
-                  className="rounded p-2 bg-bgColor"
-                />
-                <label
-                  htmlFor="ideal_price"
-                  className="text-xs text-content-white font-medium"
-                >
-                  Ideal price
                 </label>
               </div>
             </div>

@@ -58,7 +58,7 @@ function Page({
       <p className="font-semibold text-[#B67352] text-4xl mt-12">
         You might also be interested in...
       </p>
-      {dormListings && dormListings.length > 0 && (
+      {dormListings && dormListings.length > 1 && (
         <>
           <DormRecc dormId={dormListings[0].dormId} />
           <DormRecc dormId={dormListings[1].dormId} />

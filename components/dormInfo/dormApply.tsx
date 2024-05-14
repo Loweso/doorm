@@ -5,9 +5,8 @@ interface DormInfo {
   address: string;
   availability: string;
   description: string;
-  minimum_rent: number;
-  ideal_price: number;
-  room_image?: Buffer | null;
+  rent: number;
+  room_image?: string;
   createdAt: string;
   user_email: string;
   user_fullName: string;
@@ -26,7 +25,7 @@ export const DormApply: React.FC<Props> = ({ dormInfo }) => {
         Negotiate Price (in PHP):
         <input
           type="number"
-          min={dormInfo.minimum_rent}
+          min={dormInfo.rent}
           step="1000"
           className="rounded-xl p-3"
         />

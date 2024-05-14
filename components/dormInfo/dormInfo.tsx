@@ -20,9 +20,8 @@ interface DormInfo {
   address: string;
   availability: string;
   description: string;
-  minimum_rent: number;
-  ideal_price: number;
-  room_image?: Buffer | null;
+  rent: number;
+  room_image: string;
   createdAt: string;
   user_email: string;
   user_fullName: string;
@@ -84,12 +83,13 @@ export const DormInfo: React.FC<Props> = ({ dormInfo }) => {
       <div className="h-[50vh] w-full rounded-2xl bg-[#EFEBE3] border-b-[1px]">
         <div className="flex h-[40vh] w-full rounded-2xl bg-[#FFFFFF] p-6 border-b-[1px]">
           <Image
-            src="/shrekid.jpg"
+            src={dormInfo?.room_image ? dormInfo.room_image : "/shrekid.jpg"}
             height={300}
             width={300}
             alt="No image"
             className="w-1/3 h-full rounded-lg"
           />
+
           <div className="flex flex-col justify-between w-2/3 h-full py-6 px-10 items-between">
             <p className="text-3xl font-semibold">
               {dormInfo && dormInfo.listingName}
@@ -169,7 +169,7 @@ export const DormInfo: React.FC<Props> = ({ dormInfo }) => {
         </p>
         <p>
           <span className="text-xl font-semibold">Price</span>
-          &nbsp; {dormInfo && dormInfo.ideal_price}
+          &nbsp; {dormInfo && dormInfo.rent}
         </p>
         <p className="text-xl font-semibold">Amenities</p>
         {dormInfo && dormInfo.features.length > 0 && dormInfo.features ? (

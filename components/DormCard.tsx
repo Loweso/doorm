@@ -8,6 +8,7 @@ import { usePathname } from "next/navigation";
 import { LiaEdit } from "react-icons/lia";
 import { MdDelete } from "react-icons/md";
 import { useParams } from "next/navigation";
+import Image from "next/image";
 
 interface Props {
   dormId: string;
@@ -42,7 +43,16 @@ export const DormCard: React.FC<Props> = ({ dormId }) => {
       className="flex w-80 h-80"
     >
       <div className="w-full h-full bg-[#FFFFFF] bg-opacity-80 rounded-xl overflow-hidden shadow-lg">
-        <div className="w-full h-[65%] bg-accentColor-lightBlue"></div>
+        <div className="w-full h-[65%] bg-accentColor-lightBlue overflow-hidden">
+          <Image
+            src={dormInfo?.room_image ? dormInfo.room_image : "/shrekid.jpg"}
+            height={300}
+            width={300}
+            alt="No image"
+            className="w-full h-full"
+          />
+          )
+        </div>
         <div className="px-4 py-3 font-semibold text-content-darkBrown ">
           <p className="text-2xl">{dormInfo && dormInfo.listingName}</p>
           <div className="flex  justify-between py-1">

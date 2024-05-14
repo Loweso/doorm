@@ -3,21 +3,28 @@ import { useState, useEffect } from "react";
 import { DormCard } from "./DormCard";
 import { FaHouse } from "react-icons/fa6";
 
-export const DormCardContainer = () => {
-  const [dormListings, setDormListings] = useState<any>(null);
+interface DormListings {
+  user_ID: string;
+  dormId: string;
+  listingName: string;
+  rentType: string;
+  address: string;
+  availability: string;
+  description: string;
+  rent: number;
+  room_image: string;
+  createdAt: string;
+  user_email: string;
+  user_fullName: string;
+  user_contactNo: string;
+  featuresNames: string[];
+}
 
-  useEffect(() => {
-    const fetchDormInfo = async () => {
-      try {
-        const response = await axios.get(`http://localhost:5000/listing/read/`);
-        setDormListings(response.data);
-      } catch (error) {
-        console.error("Error fetching dorm information:", error);
-      }
-    };
+interface Props {
+  dormListings: DormListings[];
+}
 
-    fetchDormInfo();
-  }, []);
+export const DormCardContainer: React.FC<Props> = ({ dormListings }) => {
   return (
     <div className="grid grid-cols-3 place-items-center ps-16 pe-16 pb-12 gap-y-10 ">
       {dormListings &&
