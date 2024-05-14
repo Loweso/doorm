@@ -18,7 +18,6 @@ interface FormValues {
   description: string;
   minimum_rent: number;
   ideal_price: number;
-  room_image: File | null;
 }
 
 interface Amenities {
@@ -39,8 +38,9 @@ export const Forms = () => {
     description: "",
     minimum_rent: 0,
     ideal_price: 0,
-    room_image: null,
   });
+
+  const [room_image, setRoom_Image] = useState(null);
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -64,26 +64,42 @@ export const Forms = () => {
   };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setFormData((prevData: any) => ({
-        ...prevData,
-        room_image: e.target.files[0],
-      }));
+    setRoom_Image(e.target.files[0]);
+  };
+
+  const convertBase64 = (file: any) => {
+    if (file) {
+      return new Promise((res, rej) => {
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL(file);
+        fileReader.onload = () => {
+          res(fileReader.result);
+        };
+        fileReader.onerror = (error) => {
+          rej(error);
+        };
+      });
     }
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const base64 = (await convertBase64(room_image)) || null;
+
     const updatedFormData = {
       ...formData,
       roomAmenities,
+      base64,
     };
 
     // Submit the form data
     console.log(updatedFormData);
 
     try {
-      await axios.post("http://localhost:5000/listing/new", updatedFormData);
+      await axios.post("http://localhost:5000/listing/new", updatedFormData, {
+        withCredentials: true,
+      });
     } catch (error) {
       console.error("Error inserting listing:", error);
     }
