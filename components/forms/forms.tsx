@@ -5,7 +5,7 @@ import { IoMdCloudUpload } from "react-icons/io";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { RxCross2 } from "react-icons/rx";
 import { useParams } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { userStore } from "@/store/userStore";
 import { useRouter } from "next/navigation";
 
@@ -23,6 +23,7 @@ interface FormValues {
 interface Amenities {
   amenities: string[];
 }
+
 export const Forms = () => {
   const router = useRouter();
   const user = userStore((state) => state.user);
@@ -96,14 +97,24 @@ export const Forms = () => {
     // Submit the form data
     console.log(updatedFormData);
 
-    try {
-      await axios.post("http://localhost:5000/listing/new", updatedFormData, {
-        withCredentials: true,
-      });
-    } catch (error) {
-      console.error("Error inserting listing:", error);
+    if (path === `/listing/new`) {
+      try {
+        await axios.post("http://localhost:5000/listing/new", updatedFormData);
+      } catch (error) {
+        console.error("Error inserting listing:", error);
+      }
+      router.push("/");
+    } else if (path === `/listing/${params.dormId}/edit`) {
+      try {
+        await axios.put(
+          `http://localhost:5000/edit/${params.dormId}`,
+          updatedFormData
+        );
+      } catch (error) {
+        console.error("Error inserting listing:", error);
+      }
+      router.push(`/listing/${params.dormId}`);
     }
-    router.push("/");
   };
 
   const [roomAmenities, setRoomAmenities] = useState<string[]>([]);
@@ -131,6 +142,26 @@ export const Forms = () => {
 
   const params = useParams<{ dormId: string }>();
   const path = usePathname();
+
+  const [dormInfo, setDormInfo] = useState<any>(null);
+
+  useEffect(() => {
+    if (path === `/listing/${params.dormId}/edit`) {
+      const fetchDormInfo = async () => {
+        try {
+          const response = await axios.get(
+            `http://localhost:5000/listing/read/${params.dormId}`
+          );
+          setFormData(response.data);
+          setRoomAmenities(response.data.features);
+        } catch (error) {
+          console.error("Error fetching dorm information:", error);
+        }
+      };
+
+      fetchDormInfo();
+    }
+  }, [path, params.dormId]);
 
   return (
     <form
