@@ -8,8 +8,6 @@ import { DormApply } from "@/components/dormInfo/dormApply";
 import { DormRecc } from "@/components/dormInfo/dormRecc";
 import { Searchbar } from "@/components/search/searchbar";
 import { userStore } from "@/store/userStore";
-import { useEffect, useState } from "react";
-import axios from "axios";
 
 function Page({
   params,
@@ -24,7 +22,7 @@ function Page({
     const fetchDormInfo = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/listing/read/${params.dormId}`
+          `http://localhost:5000/listing/${params.dormId}`
         );
         setDormInfo(response.data);
       } catch (error) {
@@ -35,7 +33,6 @@ function Page({
     fetchDormInfo();
   }, [params.dormId]);
 
-  const user = userStore((state) => state.user);
   const [dormListings, setDormListings] = useState<any>(null);
 
   useEffect(() => {

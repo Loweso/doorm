@@ -15,7 +15,7 @@ export const DormRecc: React.FC<Props> = ({ dormId }) => {
     const fetchDormInfo = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/listing/read/${dormId}`
+          `http://localhost:5000/listing/${dormId}`
         );
         setDormInfo(response.data);
       } catch (error) {
