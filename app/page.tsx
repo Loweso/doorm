@@ -30,7 +30,7 @@ export default function Page() {
     const fetchDormInfo = async () => {
       try {
         const response = await axios.get(`http://localhost:5000/listing/read/`);
-        setDormListings(response.data);
+        setDormListings(response.data.slice(0, 7));
       } catch (error) {
         console.error("Error fetching dorm information:", error);
       }
@@ -74,9 +74,9 @@ export default function Page() {
           >
             {/* Mapping dorm listings to DormCard components */}
             {dormListings &&
-              dormListings.map((dorm: any) => (
-                <Link href={`/listing/${dorm.dormId}`} key={dorm.id}>
-                  <DormCard dormId={dorm.dormId} />
+              dormListings.map((dorm: any, index: any) => (
+                <Link href={`/listing/${dorm.dormId}`} key={index}>
+                  <DormCard dormcardinfo={dorm} />
                 </Link>
               ))}
           </div>

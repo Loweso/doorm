@@ -31,9 +31,9 @@ export const DormRecc: React.FC<Props> = ({ dormId }) => {
       href={`http://localhost:3000/listing/${dormId}`}
       className="flex h-[40vh] w-3/4"
     >
-      <div className="flex h-full w-full rounded-2xl p-6 border-[1px] shadow-lg hover:bg-[#EDE8DF]">
+      <div className="flex h-full w-full rounded-2xl p-6 border-[1px] shadow-lWg hover:bg-[#EDE8DF]">
         <Image
-          src="/shrekid.jpg"
+          src={dormInfo?.room_image ? dormInfo.room_image : "/shrekid.jpg"}
           height={300}
           width={300}
           alt="No image"

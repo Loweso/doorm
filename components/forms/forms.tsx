@@ -149,10 +149,11 @@ export const Forms = () => {
       const fetchDormInfo = async () => {
         try {
           const response = await axios.get(
-            `http://localhost:5000/listing/read/${params.dormId}`
+            `http://localhost:5000/listing/${params.dormId}`
           );
           setFormData(response.data);
           setRoomAmenities(response.data.features);
+          console.log(response.data.room_image);
         } catch (error) {
           console.error("Error fetching dorm information:", error);
         }
@@ -344,12 +345,12 @@ export const Forms = () => {
         </div>
 
         <div className="flex gap-x-8 w-full">
-          <div className="w-3/5">
+          <div className="w-3/5 ">
             <span className="text-xs text-content-white font-medium">
-              Price Range for Monthly Rent (in PHP):
+              Starting Minimum Rent (in PHP):
             </span>
             <div className="flex gap-x-4 w-full">
-              <div className="flex flex-col w-6/12">
+              <div className="flex flex-col w-full">
                 <input
                   type="number"
                   id="rent"
@@ -358,12 +359,6 @@ export const Forms = () => {
                   onChange={handleChange}
                   className="rounded p-2 bg-bgColor"
                 />
-                <label
-                  htmlFor="rent"
-                  className="text-xs text-content-white font-medium"
-                >
-                  Starting minimum
-                </label>
               </div>
             </div>
           </div>
@@ -385,6 +380,11 @@ export const Forms = () => {
               onChange={(e) => handleImageChange(e)}
               className="hidden"
             />
+            <p className="text-xs text-content-white font-medium">
+              {room_image?.name && room_image?.name.length > 26
+                ? room_image.name.substring(0, 26) + "..."
+                : room_image?.name}
+            </p>
           </div>
         </div>
 

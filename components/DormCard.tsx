@@ -10,28 +10,20 @@ import { MdDelete } from "react-icons/md";
 import { useParams } from "next/navigation";
 import Image from "next/image";
 
-interface Props {
+interface DormCardInfo {
   dormId: string;
+  room_image: string;
+  listingName: string;
+  fullName: string;
+  address: string;
+  featureNames: string[];
 }
 
-export const DormCard: React.FC<Props> = ({ dormId }) => {
-  const [dormInfo, setDormInfo] = useState<any>(null);
+interface Props {
+  dormcardinfo: DormCardInfo;
+}
 
-  useEffect(() => {
-    const fetchDormInfo = async () => {
-      try {
-        const response = await axios.get(
-          `http://localhost:5000/listing/${dormId}`
-        );
-        setDormInfo(response.data);
-      } catch (error) {
-        console.error("Error fetching dorm information:", error);
-      }
-    };
-
-    fetchDormInfo();
-  }, [dormId]);
-
+export const DormCard: React.FC<Props> = ({ dormcardinfo }) => {
   const params = useParams<{ userId: string }>();
   const isUserListingRoute = usePathname() === `/user/${params.userId}/listing`;
   const isUserApplicationsRoute =
@@ -39,13 +31,17 @@ export const DormCard: React.FC<Props> = ({ dormId }) => {
 
   return (
     <Link
-      href={`http://localhost:3000/listing/${dormId}`}
+      href={`http://localhost:3000/listing/${dormcardinfo.dormId}`}
       className="flex w-80 h-80"
     >
       <div className="w-full h-full bg-[#FFFFFF] bg-opacity-80 rounded-xl overflow-hidden shadow-lg">
-        <div className="w-full h-[65%] bg-accentColor-lightBlue overflow-hidden">
+        <div className="w-full h-[64%] bg-accentColor-lightBlue overflow-hidden">
           <Image
-            src={dormInfo?.room_image ? dormInfo.room_image : "/shrekid.jpg"}
+            src={
+              dormcardinfo?.room_image
+                ? dormcardinfo.room_image
+                : "/shrekid.jpg"
+            }
             height={300}
             width={300}
             alt="No image"
@@ -53,22 +49,22 @@ export const DormCard: React.FC<Props> = ({ dormId }) => {
           />
           )
         </div>
-        <div className="px-4 py-3 font-semibold text-content-darkBrown ">
-          <p className="text-2xl">{dormInfo && dormInfo.listingName}</p>
-          <div className="flex  justify-between py-1">
+        <div className="px-4 py-2 font-semibold text-content-darkBrown ">
+          <p className="text-2xl">{dormcardinfo && dormcardinfo.listingName}</p>
+          <div className="flex flex-col justify-between py-1 gap-y-1">
             <p className="font-light text-xs italic ">
-              by <span>{dormInfo && dormInfo.user_fullName}</span>
+              by <span>{dormcardinfo && dormcardinfo.fullName}</span>
             </p>
             <p className="font-normal items-center text-xs flex gap-x-[1px]">
               <PiMapPinFill size={15} />
-              {dormInfo && dormInfo.address}
+              {dormcardinfo && dormcardinfo.address}
             </p>
           </div>
           {!isUserListingRoute &&
             !isUserApplicationsRoute &&
-            (dormInfo && dormInfo.features ? (
-              <div className="flex ps-2 pt-3 font-normal text-xs gap-x-6">
-                {dormInfo.features.map((feature: string, index: number) => (
+            (dormcardinfo && dormcardinfo.featureNames ? (
+              <div className="flex pt-1 justify-evenly font-normal text-xs gap-x-6">
+                {dormcardinfo.featureNames.map((feature: string, index: number) => (
                   <div key={index} className="flex items-center gap-x-1">
                     <BsPinAngleFill size={10} />
                     <span>{feature}</span>

@@ -26,7 +26,7 @@ export default function Page() {
       <h1 className="ml-24 text-3xl font-bold text-accentColor-earthyYellow">
         Available Listings
       </h1>
-      dormListings && <DormCardContainer dormListings={dormListings} />
+      {dormListings && <DormCardContainer dormListings={dormListings} />}
     </main>
   );
 }
