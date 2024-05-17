@@ -13,13 +13,13 @@ export default function Page() {
   const [scrollYeet, setScrollYeet] = useState(false);
 
   const scrollLeft = () => {
-    const newPosition = scrollPosition - 1300;
+    const newPosition = scrollPosition - 1050;
     setScrollPosition(Math.max(0, newPosition));
     setScrollYeet(!scrollYeet);
   };
 
   const scrollRight = () => {
-    const newPosition = scrollPosition + 1300;
+    const newPosition = scrollPosition + 1050;
     setScrollPosition(newPosition);
     setScrollYeet(!scrollYeet);
   };

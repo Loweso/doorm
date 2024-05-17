@@ -4,6 +4,7 @@ type Query = {
   amenity: string | null;
   address: string | null;
   name: string | null;
+  rent: number | null;
 };
 
 type State = {
@@ -20,6 +21,7 @@ export const useSearchStore = create<State & Action>((set) => ({
     amenity: null,
     address: null,
     name: null,
+    rent: null,
   },
   setQuery: (newQuery) =>
     set((state) => ({ query: { ...state.query, ...newQuery } })),
@@ -29,6 +31,7 @@ export const useSearchStore = create<State & Action>((set) => ({
         amenity: null,
         address: null,
         name: null,
+        rent: null,
       },
     }),
 }));

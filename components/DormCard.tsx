@@ -57,19 +57,23 @@ export const DormCard: React.FC<Props> = ({ dormcardinfo }) => {
             </p>
             <p className="font-normal items-center text-xs flex gap-x-[1px]">
               <PiMapPinFill size={15} />
-              {dormcardinfo && dormcardinfo.address}
+              {dormcardinfo && dormcardinfo.address.length > 38
+                ? dormcardinfo.address.substring(0, 38)
+                : dormcardinfo.address}
             </p>
           </div>
           {!isUserListingRoute &&
             !isUserApplicationsRoute &&
             (dormcardinfo && dormcardinfo.featureNames ? (
-              <div className="flex pt-1 justify-evenly font-normal text-xs gap-x-6">
-                {dormcardinfo.featureNames.map((feature: string, index: number) => (
-                  <div key={index} className="flex items-center gap-x-1">
-                    <BsPinAngleFill size={10} />
-                    <span>{feature}</span>
-                  </div>
-                ))}
+              <div className="flex pt-1 justify-evenly font-normal text-[0.65rem] gap-x-6">
+                {dormcardinfo.featureNames.map(
+                  (feature: string, index: number) => (
+                    <div key={index} className="flex items-center gap-x-1">
+                      <BsPinAngleFill size={10} />
+                      <span>{feature}</span>
+                    </div>
+                  )
+                )}
               </div>
             ) : (
               <p>No features available</p>

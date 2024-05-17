@@ -57,7 +57,7 @@ export const Searchbar = () => {
         />
       </div>
 
-      <div className="relative flex w-1/3 p-2 rounded-lg bg-bgColor border-[1px] shadow-md">
+      <div className="relative flex w-1/4 p-2 rounded-lg bg-bgColor border-[1px] shadow-md">
         <div className="relative flex-col">
           <label
             htmlFor="filterResult"
@@ -75,6 +75,7 @@ export const Searchbar = () => {
             <option value="name">Name</option>
             <option value="address">Address</option>
             <option value="amenity">Amenity</option>
+            <option value="rent">Rent Under</option>
           </select>
 
           <IoMdArrowDropdown

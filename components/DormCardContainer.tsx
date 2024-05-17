@@ -19,17 +19,31 @@ interface Props {
 
 export const DormCardContainer: React.FC<Props> = ({ dormListings }) => {
   return (
-    <div className="grid grid-cols-3 place-items-center ps-16 pe-16 pb-12 gap-y-10 ">
+    <div
+      className={
+        dormListings.length > 0
+          ? "grid grid-cols-3 place-items-center ps-16 pe-16 pb-12 gap-y-10"
+          : "flex justify-center items-center"
+      }
+    >
       {dormListings &&
         dormListings.map((dorm: any, index: any) => (
           <Link href={`/listing/${dorm.dormId}`} key={index}>
             <DormCard dormcardinfo={dorm} />
           </Link>
         ))}
-      <h1 className="col-span-3 text-content-darkBrown font-semibold text-lg flex items-baseline gap-x-1 cursor-pointer">
-        <FaHouse />
-        More Dorms
-      </h1>
+      {dormListings.length === 0 && (
+        <div className="flex flex-col items-center space-y-2">
+          <h1 className="font-semibold text-xl text-content-darkBrown">
+            No listings found!
+          </h1>
+          <FaHouse
+            width={500}
+            height={500}
+            className="h-20 w-20 text-content-darkBrown "
+          />
+        </div>
+      )}
     </div>
   );
 };
