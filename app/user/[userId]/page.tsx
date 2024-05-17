@@ -143,7 +143,7 @@ export default function Page() {
               </div>
             </div>
             <div className="w-full h-1/4 flex justify-center items-center space-x-8">
-              <Link href={`/${user?.user_ID}/listing`}>
+              <Link href={`/user/${user?.user_ID}/listing`}>
                 <button className="w-64 h-16 bg-[#DEDAD1] border-[1px] space-x-4 rounded-lg border-gray-800 flex justify-center items-center hover:bg-[#D1CEC9] shadow-lg">
                   <FaList color="#6D5D55" className="w-8 h-8" />
                   <p className="text-2xl text-[#6D5D55] font-medium">
@@ -152,7 +152,7 @@ export default function Page() {
                   </p>
                 </button>
               </Link>
-              <Link href={`/${user?.user_ID}/applications`}>
+              <Link href={`/user/${user?.user_ID}/applications`}>
                 <button className="w-80 h-16 bg-[#DEDAD1] border-[1px] space-x-4 rounded-lg border-gray-800 flex justify-center items-center hover:bg-[#D1CEC9] shadow-lg">
                   <FaList color="#6D5D55" className="w-8 h-8" />
                   <p className="text-2xl text-[#6D5D55] font-medium">
