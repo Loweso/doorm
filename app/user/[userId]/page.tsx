@@ -50,8 +50,8 @@ export default function Page() {
         <div className="flex-1 w-1/3 bg-[#B67352] flex flex-col justify-center items-center">
           <Image
             src={user.profilePicture}
-            height={300}
-            width={300}
+            height={360}
+            width={360}
             alt="No image"
             className="w-96 h-96 aspect-square rounded-full"
           />

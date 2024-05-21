@@ -21,7 +21,7 @@ export const DormCardContainer: React.FC<Props> = ({ dormListings }) => {
   return (
     <div
       className={
-        dormListings.length > 0
+        dormListings && dormListings.length > 0
           ? "grid grid-cols-3 place-items-center ps-16 pe-16 pb-12 gap-y-10"
           : "flex justify-center items-center"
       }
@@ -32,7 +32,7 @@ export const DormCardContainer: React.FC<Props> = ({ dormListings }) => {
             <DormCard dormcardinfo={dorm} />
           </Link>
         ))}
-      {dormListings.length === 0 && (
+      {dormListings && dormListings.length === 0 && (
         <div className="flex flex-col items-center space-y-2">
           <h1 className="font-semibold text-xl text-content-darkBrown">
             No listings found!
