@@ -22,33 +22,47 @@ interface DormInfo {
 
 interface Props {
   dormInfo: DormInfo;
+  dormId: string;
 }
 
 interface ApplyInfo {
-  user_ID: string;
+  user_ID: string | undefined;
   dormId: string;
   rent: number;
   status: string;
 }
 
-export const DormApply: React.FC<Props> = ({ dormInfo }) => {
-  const router = useRouter (); 
-  const user = userStore((state) => state.user);
+export const DormApply: React.FC<Props> = ({ dormInfo, dormId }) => {
+ 
+  const user = userStore((state) => state.user); 
 
   const [applyInfo, setApplyInfo] = useState<ApplyInfo>({
     user_ID: user?.user_ID,
-    dormId: dormInfo.dormId,
-    rent: 0,
+    rent: dormInfo.rent,
+    dormId: dormId,
     status: "Pending",
   });
 
-  const createApplication = () => {
+  const createApplication = async () => {
+    console.log(applyInfo)
     try {
-      axios.post("http://localhost:5000/applications/create", applyInfo);
+      await axios.post(`http://localhost:5000/listing/${dormId}/applications`, applyInfo );
+      setApplyInfo((prevApplyInfo) => ({
+        ...prevApplyInfo,
+        rent: dormInfo.rent,
+      }));
     } catch (error) {
       console.error("Error inserting listing:", error);
     }
-  } 
+  };
+
+  const handleRentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newRent = Number(event.target.value);
+    setApplyInfo((prevApplyInfo) => ({
+      ...prevApplyInfo,
+      rent: newRent,
+    }));
+  };
 
   return (
     <div className="flex h-[10vh] w-3/4 justify-around">
@@ -59,6 +73,7 @@ export const DormApply: React.FC<Props> = ({ dormInfo }) => {
           min={dormInfo.rent}
           step="1000"
           value={applyInfo.rent}
+          onChange={handleRentChange}
           className="rounded-xl p-3"
         />
       </div>

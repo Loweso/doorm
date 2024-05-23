@@ -53,7 +53,7 @@ function Page({
       <Searchbar />
       <DormInfo dormInfo={dormInfo} />
       {user && dormInfo && user.user_ID !== dormInfo.user_ID && (
-        <DormApply dormInfo={dormInfo} />
+        <DormApply dormInfo={dormInfo} dormId = {params.dormId}/>
       )}
       <p className="font-semibold text-[#B67352] text-4xl mt-12">
         You might also be interested in...
