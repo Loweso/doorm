@@ -52,9 +52,19 @@ export default function RootLayout({
         router.push("/auth");
       } else if (user && pathname === "/auth") {
         router.push("/");
+      } else if (user && pathname.startsWith("/user")) {
+        const segments = pathname.split("/");
+        const userIdFromUrl = segments[2];
+        if (userIdFromUrl && userIdFromUrl !== String(user.user_ID)) {
+          router.push("/");
+        }
       }
     }
   }, [user, loading, router, pathname]);
+
+  if (loading) {
+    return <div>Loading...</div>; // Show loading while checking user
+  }
 
   if (loading) {
     return (

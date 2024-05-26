@@ -1,7 +1,7 @@
 "use client";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { userStore } from "@/store/userStore";
 
 interface DormInfo {
@@ -33,8 +33,8 @@ interface ApplyInfo {
 }
 
 export const DormApply: React.FC<Props> = ({ dormInfo, dormId }) => {
- 
-  const user = userStore((state) => state.user); 
+  const user = userStore((state) => state.user);
+  const [applications, setApplications] = useState<any>(null);
 
   const [applyInfo, setApplyInfo] = useState<ApplyInfo>({
     user_ID: user?.user_ID,
@@ -44,13 +44,17 @@ export const DormApply: React.FC<Props> = ({ dormInfo, dormId }) => {
   });
 
   const createApplication = async () => {
-    console.log(applyInfo)
+    console.log(applyInfo);
     try {
-      await axios.post(`http://localhost:5000/listing/${dormId}/applications`, applyInfo );
+      await axios.post(
+        `http://localhost:5000/listing/${dormId}/applications`,
+        applyInfo
+      );
       setApplyInfo((prevApplyInfo) => ({
         ...prevApplyInfo,
         rent: dormInfo.rent,
       }));
+      window.location.reload();
     } catch (error) {
       console.error("Error inserting listing:", error);
     }
@@ -64,22 +68,59 @@ export const DormApply: React.FC<Props> = ({ dormInfo, dormId }) => {
     }));
   };
 
-  return (
-    <div className="flex h-[10vh] w-3/4 justify-around">
-      <div className="w-1/2 flex flex-col font-semibold">
-        Negotiate Price (in PHP):
-        <input
-          type="number"
-          min={dormInfo.rent}
-          step="1000"
-          value={applyInfo.rent}
-          onChange={handleRentChange}
-          className="rounded-xl p-3"
-        />
-      </div>
-      <button className="w-1/3 p-3 font-semibold text-xl rounded-xl bg-[#B65E52]/[.5] hover:bg-[#B65E52]/[.65]" onClick={createApplication}>
-        Apply for Listing
-      </button>
-    </div>
-  );
+  useEffect(() => {
+    const fetchApplications = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:5000/listing/${dormId}/applications`
+        );
+        console.log(response.data);
+        setApplications(response.data);
+      } catch (error) {
+        console.error("Failed to fetch applications: ", error);
+      }
+    };
+    fetchApplications();
+  }, [dormId]);
+
+  const isUserIdNotInApplications = (userId: any) => {
+    return !applications?.some(
+      (application: any) =>
+        application.user_ID === userId && application.dormId === dormId
+    );
+  };
+
+  if (isUserIdNotInApplications(user?.user_ID)) {
+    return (
+      user && (
+        <div className="flex h-[10vh] w-3/4 justify-around">
+          <div className="w-1/2 flex flex-col font-semibold">
+            Negotiate Price (in PHP):
+            <input
+              type="number"
+              min={dormInfo.rent}
+              step="1000"
+              value={applyInfo.rent}
+              onChange={handleRentChange}
+              className="rounded-xl p-3"
+            />
+          </div>
+          <button
+            className="w-1/3 p-3 font-semibold text-xl rounded-xl bg-[#B65E52]/[.5] hover:bg-[#B65E52]/[.65]"
+            onClick={createApplication}
+          >
+            Apply for Listing
+          </button>
+        </div>
+      )
+    );
+  } else {
+    return (
+      user && (
+        <div className="p-3 w-40 text-center font-semibold text-xl rounded-xl bg-[#B65E52]/[.5]">
+          Applied
+        </div>
+      )
+    );
+  }
 };

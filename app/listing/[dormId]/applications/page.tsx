@@ -3,10 +3,10 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { FiEdit3 } from "react-icons/fi";
 import { userStore } from "@/store/userStore";
-import { MdOutlineDeleteOutline } from "react-icons/md";
 import AppRow from "@/components/applicantsRow/appRow";
 import axios from "axios";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const Page = ({
   params,
@@ -17,6 +17,7 @@ const Page = ({
 }) => {
   const user = userStore((state) => state.user);
   const [applications, setApplications] = useState([]);
+  const router = useRouter();
   const [dormInfo, setDormInfo] = useState<any>(null);
 
   useEffect(() => {
@@ -49,7 +50,7 @@ const Page = ({
     };
 
     fetchApplications();
-  }, []);
+  }, [params.dormId]);
 
   return (
     user &&

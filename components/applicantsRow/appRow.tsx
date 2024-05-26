@@ -18,7 +18,7 @@ interface AppRowProps {
 }
 
 const AppRow: React.FC<AppRowProps> = ({ application }) => {
-  const [isDecision, SetIsDecision] = useState("");
+  const [decision, setDecision] = useState<any>("");
   const [status, SetStatus] = useState({
     user_ID: application.user_ID,
     rent: application.rent,
@@ -31,6 +31,7 @@ const AppRow: React.FC<AppRowProps> = ({ application }) => {
       ...prevStatusInfo,
       decision: "accepted",
     }));
+    setDecision("accepted");
   };
 
   const rejectApplication = () => {
@@ -38,13 +39,8 @@ const AppRow: React.FC<AppRowProps> = ({ application }) => {
       ...prevStatusInfo,
       decision: "rejected",
     }));
+    setDecision("rejected");
   };
-
-  useEffect(() => {
-    if (status.decision) {
-      updateApplication();
-    }
-  }, [status.decision]);
 
   const updateApplication = async () => {
     try {
@@ -56,11 +52,18 @@ const AppRow: React.FC<AppRowProps> = ({ application }) => {
         ...prevStatusInfo,
         decision: "",
       }));
+      window.location.reload();
       console.log("Successfully updated application!");
     } catch (error) {
       console.error(error);
     }
   };
+
+  useEffect(() => {
+    if (status.decision) {
+      updateApplication();
+    }
+  }, [status.decision]);
 
   return (
     <div className="flex flex-row">
@@ -76,20 +79,43 @@ const AppRow: React.FC<AppRowProps> = ({ application }) => {
           {application.rent}{" "}
         </div>
       </div>
-      <div className="w-1/3 h-full flex items-center justify-evenly m-2 gap-2">
-        <button
-          className="w-2/5 h-10 bg-[#8CB9BD] flex justify-center items-center rounded hover:bg-[#7FA5A8]"
-          onClick={acceptApplication}
-        >
-          <FaCheck color="white" className="w-9 h-9 " />{" "}
-        </button>
-        <button
-          className="w-2/5 h-10 bg-[#B67352] flex justify-center items-center rounded hover:bg-[#8E5A41]"
-          onClick={rejectApplication}
-        >
-          <ImCross color="white" className="w-8 h-8 " />{" "}
-        </button>
-      </div>
+      {application && application.status === "Pending" && decision == "" && (
+        <div className="w-1/3 h-full flex items-center justify-evenly m-2 gap-2">
+          <button
+            className="w-2/5 h-10 bg-[#8CB9BD] flex justify-center items-center rounded hover:bg-[#7FA5A8]"
+            onClick={acceptApplication}
+          >
+            <FaCheck color="white" className="w-9 h-9 " />{" "}
+          </button>
+          <button
+            className="w-2/5 h-10 bg-[#B67352] flex justify-center items-center rounded hover:bg-[#8E5A41]"
+            onClick={rejectApplication}
+          >
+            <ImCross color="white" className="w-8 h-8 " />{" "}
+          </button>
+        </div>
+      )}
+      {decision === "accepted" && (
+        <div className="w-1/3 h-full flex items-center justify-evenly m-2 gap-2 font-semibold text-content-darkBrown">
+          Accepted
+        </div>
+      )}
+      {decision === "rejected" && (
+        <div className="w-1/3 h-full flex items-center justify-evenly m-2 gap-2 font-semibold text-content-darkBrown">
+          Rejected
+        </div>
+      )}
+
+      {application && application.status === "accepted" && (
+        <div className="w-1/3 h-full flex items-center justify-evenly m-2 gap-2 font-semibold text-content-darkBrown">
+          Accepted
+        </div>
+      )}
+      {application && application.status === "rejected" && (
+        <div className="w-1/3 h-full flex items-center justify-evenly m-2 gap-2 font-semibold text-content-darkBrown">
+          Rejected
+        </div>
+      )}
     </div>
   );
 };

@@ -4,8 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { userStore } from "@/store/userStore";
-import { useState, useEffect } from "react";
-import { IoHeartOutline } from "react-icons/io5";
+import { useState } from "react";
+import { FaList } from "react-icons/fa6";
 import { IoShareSocialOutline } from "react-icons/io5";
 import { MdModeEdit } from "react-icons/md";
 import { MdOutlineEdit } from "react-icons/md";
@@ -13,7 +13,7 @@ import { MdDelete } from "react-icons/md";
 import { MdDeleteOutline } from "react-icons/md";
 
 interface DormInfo {
-  user_ID?: string | null;
+  user_ID: string | null;
   dormId: string;
   listingName: string;
   rentType: string;
@@ -94,6 +94,18 @@ export const DormInfo: React.FC<Props> = ({ dormInfo }) => {
             <p className="text-3xl font-semibold">
               {dormInfo && dormInfo.listingName}
             </p>
+            {dormInfo &&
+              dormInfo.user_ID &&
+              user &&
+              user?.user_ID == dormInfo?.user_ID && (
+                <Link
+                  href={`/listing/${dormInfo.dormId}/applications`}
+                  className="flex items-center gap-x-2 text-md border w-48 p-1 rounded justify-center bg-accentColor-earthyBrown bg-opacity-35"
+                >
+                  <FaList color="#6D5D55" className="w-4 h-4" />
+                  View Applications
+                </Link>
+              )}
             <p className="flex justify-between">
               Date Posted: {dormInfo && dormInfo.createdAt}
               <span className="justify-between">
@@ -105,10 +117,6 @@ export const DormInfo: React.FC<Props> = ({ dormInfo }) => {
             <div className="flex flex-column">
               <button className="flex items-center h-10 p-2">
                 <IoShareSocialOutline className="h-8 w-6" />
-              </button>
-
-              <button className="flex items-center h-10 p-2">
-                <IoHeartOutline className="h-8 w-6" />
               </button>
             </div>
             {user && dormInfo && user.user_ID === dormInfo.user_ID && (
@@ -147,12 +155,6 @@ export const DormInfo: React.FC<Props> = ({ dormInfo }) => {
         <div className="flex items-center justify-around p-6">
           <button className="text-xl font-semibold hover:text-[#6D5D55]">
             Info
-          </button>
-          <button className="text-xl font-semibold hover:text-[#6D5D55]">
-            Photos
-          </button>
-          <button className="text-xl font-semibold hover:text-[#6D5D55]">
-            Reviews
           </button>
         </div>
       </div>

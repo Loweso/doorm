@@ -8,9 +8,11 @@ import { MdDone } from "react-icons/md";
 import { FaList } from "react-icons/fa6";
 import axios from "axios";
 import { RxCross1 } from "react-icons/rx";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
   const user = userStore((state) => state.user);
+  const router = useRouter();
   const [phoneNum, setPhoneNum] = useState(user?.contactNum);
   const [uneditedNum, setUneditedNum] = useState(phoneNum);
   const [editPhone, setEditPhone] = useState<boolean>(false);

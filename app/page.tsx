@@ -81,7 +81,7 @@ export default function Page() {
               ))}
           </div>
           {/* Button to scroll right */}
-          {!scrollYeet && (
+          {!scrollYeet && dormListings && dormListings.length > 4 && (
             <button
               className="absolute right-4 bottom-44 transform -translate-y-1/2 z-10 bg-grey-200 rounded-full p-4"
               onClick={scrollRight}
