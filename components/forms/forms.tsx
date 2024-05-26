@@ -40,6 +40,7 @@ export const Forms = () => {
   });
 
   const [room_image, setRoom_Image] = useState(null);
+  const [image, setImage] = useState(null);
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -84,7 +85,12 @@ export const Forms = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const base64 = (await convertBase64(room_image)) || null;
+    let base64 = (await convertBase64(room_image)) || null;
+
+    if (!base64) {
+      base64 = image;
+      console.log(base64);
+    }
 
     const updatedFormData = {
       ...formData,
@@ -153,7 +159,7 @@ export const Forms = () => {
           );
           setFormData(response.data);
           setRoomAmenities(response.data.features);
-          console.log(response.data.room_image);
+          setImage(response.data.room_image);
         } catch (error) {
           console.error("Error fetching dorm information:", error);
         }
