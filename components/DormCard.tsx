@@ -15,6 +15,7 @@ interface DormCardInfo {
   fullName: string;
   address: string;
   featureNames: string[];
+  status: string | null;
 }
 
 interface Props {
@@ -81,9 +82,9 @@ export const DormCard: React.FC<Props> = ({ dormcardinfo }) => {
               ))}
 
             {isUserApplicationsRoute && !isUserListingRoute && (
-              <div className="flex pt-1  font-normal text-xs justify-between   ">
-                <span className="flex items-center justify-center w-full gap-x-1 border-[1px] p-2 rounded-md bg-accentColor-lightBlue bg-opacity-35">
-                  Pending
+              <div className="flex pt-0  font-normal text-xs justify-between   ">
+                <span className="flex items-center justify-center w-full border-[1px] p-1 rounded-md bg-accentColor-lightBlue bg-opacity-35">
+                  {dormcardinfo && dormcardinfo.status}
                 </span>
               </div>
             )}
