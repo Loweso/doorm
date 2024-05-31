@@ -19,6 +19,7 @@ export default function RootLayout({
 }>) {
   const pathname = usePathname();
   const [loading, setLoading] = useState(true);
+  const [dormUser, setDormUser] = useState<any>(null);
   const user = userStore((state) => state.user);
   const setUser = userStore((state) => state.setUser);
   const router = useRouter();
@@ -58,31 +59,47 @@ export default function RootLayout({
         if (userIdFromUrl && userIdFromUrl !== String(user.user_ID)) {
           router.push("/");
         }
+      } else if (user && pathname.startsWith("/listing")) {
+        const segments = pathname.split("/");
+        const dormIdFromUrl = segments[2];
+        const fetchDormUser = async () => {
+          try {
+            const response = await axios.get(
+              `http://localhost:5000/listing/${dormIdFromUrl}`
+            );
+            setDormUser(response.data.user_ID);
+          } catch (error) {
+            console.error("Error fetching dorm information:", error);
+          } finally {
+            if (
+              dormUser !== String(user.user_ID) &&
+              (pathname.endsWith("/applications") || pathname.endsWith("/edit"))
+            ) {
+              router.push("/");
+            }
+          }
+        };
+        fetchDormUser();
       }
     }
-  }, [user, loading, router, pathname]);
+  }, [user, loading, router, pathname, dormUser]);
 
-  if (loading) {
-    return <div>Loading...</div>; // Show loading while checking user
-  }
-
-  if (loading) {
-    return (
-      <html lang="en">
-        <body>
-          <div></div>
-        </body>
-      </html>
-    );
-  } else {
-    return (
-      <html lang="en">
-        <body className={`${poppins} bg-content-white`}>
-          {pathname === "/auth" ? null : <Navbar />}
-          {children}
-          <FooterCom />
-        </body>
-      </html>
-    );
-  }
+  return (
+    <html lang="en">
+      <body className={`${poppins} bg-content-white`}>
+        {loading ||
+        (dormUser !== String(user?.user_ID) &&
+          (pathname.endsWith("/applications") ||
+            pathname.endsWith("/edit"))) ? (
+          <div>Loading...</div>
+        ) : (
+          <>
+            {pathname !== "/auth" && <Navbar />}
+            {children}
+            <FooterCom />
+          </>
+        )}
+      </body>
+    </html>
+  );
 }

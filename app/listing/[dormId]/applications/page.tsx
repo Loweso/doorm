@@ -17,7 +17,6 @@ const Page = ({
 }) => {
   const user = userStore((state) => state.user);
   const [applications, setApplications] = useState([]);
-  const router = useRouter();
   const [dormInfo, setDormInfo] = useState<any>(null);
 
   useEffect(() => {
@@ -61,7 +60,9 @@ const Page = ({
             <div className="w-full h-5/6 bg-[#FEFBF6] border-b-[1px] rounded-lg border-gray-800 flex flex-row justify-center items-center">
               <div className="w-1/2 rounded-lg flex justify-center items-center p-12">
                 <Image
-                  src={dormInfo.room_image}
+                  src={
+                    dormInfo.room_image ? dormInfo.room_image : "/shrekid.jpg"
+                  }
                   width={500}
                   height={500}
                   alt="No image"
