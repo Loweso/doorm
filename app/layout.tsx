@@ -87,10 +87,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${poppins} bg-content-white`}>
-        {loading ||
-        (dormUser !== String(user?.user_ID) &&
-          (pathname.endsWith("/applications") ||
-            pathname.endsWith("/edit"))) ? (
+        {dormUser !== String(user?.user_ID) &&
+        (pathname.endsWith("/applications") || pathname.endsWith("/edit")) ? (
           <div>Loading...</div>
         ) : (
           <>
