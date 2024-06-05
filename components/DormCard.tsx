@@ -52,7 +52,11 @@ export const DormCard: React.FC<Props> = ({ dormcardinfo }) => {
           </div>
           <div className="px-4 py-1 font-semibold text-content-darkBrown ">
             <p className="text-2xl">
-              {dormcardinfo && dormcardinfo.listingName}
+              {dormcardinfo &&
+              dormcardinfo.listingName &&
+              dormcardinfo.listingName.length > 20
+                ? dormcardinfo.listingName.substring(0, 20) + "..."
+                : dormcardinfo.listingName}
             </p>
             <div className="flex flex-col justify-between py-1 gap-y-1">
               <p className="font-light text-xs italic ">

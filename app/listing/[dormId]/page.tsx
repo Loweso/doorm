@@ -53,15 +53,19 @@ function Page({
       <Searchbar />
       <DormInfo dormInfo={dormInfo} />
       {user && dormInfo && user.user_ID !== dormInfo.user_ID && (
-        <DormApply dormInfo={dormInfo} dormId = {params.dormId}/>
+        <DormApply dormInfo={dormInfo} dormId={params.dormId} />
       )}
       <p className="font-semibold text-[#B67352] text-4xl mt-12">
         You might also be interested in...
       </p>
       {dormListings && dormListings.length > 1 && (
         <>
-          <DormRecc dormId={dormListings[0].dormId} />
-          <DormRecc dormId={dormListings[1].dormId} />
+          {params.dormId != dormListings[0].dormId && (
+            <DormRecc dormId={dormListings[0].dormId} />
+          )}
+          {params.dormId != dormListings[1].dormId && (
+            <DormRecc dormId={dormListings[1].dormId} />
+          )}
         </>
       )}
       <Link href={`http://localhost:3000/listing`} className="hover:underline">
