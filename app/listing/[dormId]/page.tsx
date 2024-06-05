@@ -58,16 +58,32 @@ function Page({
       <p className="font-semibold text-[#B67352] text-4xl mt-12">
         You might also be interested in...
       </p>
-      {dormListings && dormListings.length > 1 && (
-        <>
-          {params.dormId != dormListings[0].dormId && (
-            <DormRecc dormId={dormListings[0].dormId} />
-          )}
-          {params.dormId != dormListings[1].dormId && (
-            <DormRecc dormId={dormListings[1].dormId} />
-          )}
-        </>
-      )}
+      {dormListings &&
+        dormListings.length > 1 &&
+        (() => {
+          // Generate two unique random indices
+          const getRandomIndex = (exclude = -1) => {
+            let index;
+            do {
+              index = Math.floor(Math.random() * dormListings.length);
+            } while (index === exclude);
+            return index;
+          };
+
+          const firstRandomIndex = getRandomIndex();
+          const secondRandomIndex = getRandomIndex(firstRandomIndex);
+
+          return (
+            <>
+              {params.dormId != dormListings[firstRandomIndex].dormId && (
+                <DormRecc dormId={dormListings[firstRandomIndex].dormId} />
+              )}
+              {params.dormId != dormListings[secondRandomIndex].dormId && (
+                <DormRecc dormId={dormListings[secondRandomIndex].dormId} />
+              )}
+            </>
+          );
+        })()}
       <Link href={`http://localhost:3000/listing`} className="hover:underline">
         View More →
       </Link>
